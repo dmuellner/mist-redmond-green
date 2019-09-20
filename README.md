@@ -28,6 +28,6 @@ Screenshots:
 
    ![GTK Widget Factory, Page 2](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/gtk3-widget-factory2.png)
 
-* GTK Widget Factory, Page 1
+* GTK Widget Factory, Page 3
 
-   ![GTK Widget Factory, Page 1](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/gtk3-widget-factory1.png)
+   ![GTK Widget Factory, Page 3](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/gtk3-widget-factory3.png)
