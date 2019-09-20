@@ -1,0 +1,29 @@
+Mist-Redmond-Green theme
+
+Copyright © 2016 by Daniel Müllner <daniel@danifold.net>
+
+Version history
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+Version 1.0, 08/03/2016:
+
+  • Initial release, tested with GTK+ 3.20.6
+
+Version 1.0.1, 08/17/2016:
+
+  • Fixes for LibreOffice 5.1.5.2, tested with GTK+ 3.20.8
+
+Version 1.0.2, 08/17/2016:
+
+  • Bugfix for “check” and “radio” elements, tested with GTK+ 3.20.8
+
+Version 1.0.3, 09/08/2016:
+
+  • Simplification, tested with GTK+ 3.20.9
+
+Version 1.0.4, 07/02/2017
+
+  • Bugfix for Evince-Previewer, tested with GTK+ 3.22.16
+
+Version 1.0.5, 09/20/2019
+
+  • Fixes for Xfce Panel, tested with GTK+ 3.24.11

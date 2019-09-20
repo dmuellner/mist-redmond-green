@@ -1,0 +1,2498 @@
+* {
+    all: unset;
+
+    -GtkComboBox-appears-as-list: true;
+    -GtkArrow-arrow-scaling: .5;
+
+    -GtkToolButton-icon-spacing: 4;
+    -GtkTextView-error-underline-color: @error_color;
+    -GtkScrolledWindow-scrollbar-spacing: 0;
+    -GtkToolItemGroup-expander-size: 11;
+    -GtkTreeView-expander-size: 11;
+    -GtkTreeView-horizontal-separator: 4;
+    -GtkWidget-text-handle-width: 20;
+    -GtkWidget-text-handle-height: 24;
+    -GtkDialog-button-spacing: 4;
+    -GtkDialog-action-area-border: 0;
+
+    padding: 0px;
+    border: 10px solid red;
+    color: magenta;
+    background-color: yellow;
+}
+
+/* https://developer.gnome.org/gtk3/stable/chap-css-overview.html
+
+The available pseudo-classes for widget states are :active, :hover :disabled, :selected, :focus, :indeterminate, :checked and :backdrop. In addition, the following pseudo-classes don't have a direct equivalent as a widget state: :dir(ltr) and :dir(rtl) (for text direction), :link and :visited (for links) and :drop(active) (for highlighting drop targets). Widget state pseudo-classes may only apply to the last element in a selector.
+*/
+
+:active /* During mouse down */
+{
+}
+
+:hover
+{
+    background-color: @hover_bg_color;
+}
+
+:active:hover
+{
+    background-color: @active_hover_bg_color;
+}
+
+:disabled
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_bg_color;
+}
+
+:selected
+{
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+:focus
+{
+}
+
+:indeterminate
+{
+
+}
+
+:checked
+{
+}
+
+:checked:hover
+{
+    background-color: @hover_bg_color;
+}
+
+:backdrop /* Window is out of focus */
+{
+}
+
+:link
+{
+    color: @link_color;
+    text-decoration-line: underline;
+}
+
+:visited
+{
+    color: @visited_color;
+    text-decoration-line: underline;
+}
+
+:drop(active)
+{
+    background-color: @drop_target_bg_color;
+}
+
+/* Button: https://developer.gnome.org/gtk3/stable/GtkButton.html
+
+GtkButton has a single CSS node with name button. The node will get the style classes .image-button or .text-button, if the content is just an image or label, respectively. It may also receive the .flat style class.
+
+Other style classes that are commonly used with GtkButton include .suggested-action and .destructive-action. In special cases, buttons can be made round by adding the .circular style class.
+
+Button-like widgets like GtkToggleButton, GtkMenuButton, GtkVolumeButton, GtkLockButton, GtkColorButton, GtkFontButton or GtkFileChooserButton use style classes such as .toggle, .popup, .scale, .lock, .color, .font, .file to differentiate themselves from a plain GtkButton.
+*/
+
+button
+{
+    border: 1px outset @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+    padding: 3px;
+}
+
+
+button.image-button
+{
+    padding: 0px;
+}
+
+button.text-button
+{
+    padding: 3px;
+}
+
+button.flat
+{
+    border-style: solid;
+}
+
+button.flat:hover
+{
+    border-style: outset;
+}
+
+button:active,
+button:checked,
+button.flat:active,
+button.flat:checked
+{
+    border-style: inset;
+}
+
+button.image-button.flat
+{
+    border-color: transparent;
+}
+
+button.image-button.flat:checked,
+button.image-button.flat:active,
+button.image-button.flat:hover
+{
+    border-color: @border_color;
+}
+
+button.circular-button, button.circular
+{
+    border-radius: 50%;
+}
+
+button.destructive-action
+{
+    background-color: @button_bg_destructive;
+}
+
+button.suggested-action
+{
+    background-color: @button_bg_suggested;
+}
+
+button:checked
+{
+    background-color: @checked_bg_color;
+}
+
+button:active
+{
+    background-color: @active_bg_color;
+}
+
+button:hover
+{
+    background-color: @hover_bg_color;
+}
+
+button:hover:active
+{
+    background-color: @active_hover_bg_color;
+}
+
+button.destructive-action:checked
+{
+    background-color: mix(@checked_bg_color, @button_bg_destructive, .5);
+}
+
+button.destructive-action:active
+{
+    background-color: mix(@active_bg_color, @button_bg_destructive, .5);
+}
+
+button.destructive-action:hover
+{
+    background-color: mix(@hover_bg_color, @button_bg_destructive, .5);
+}
+
+button.destructive-action:hover:active
+{
+    background-color: mix(@active_hover_bg_color, @button_bg_destructive, .5);
+}
+
+button.suggested-action:checked
+{
+    background-color: mix(@checked_bg_color, @button_bg_suggested, .5);
+}
+
+button.suggested-action:active
+{
+    background-color: mix(@active_bg_color, @button_bg_suggested, .5);
+}
+
+button.suggested-action:hover
+{
+    background-color: mix(@hover_bg_color, @button_bg_suggested, .5);
+}
+
+button.suggested-action:hover:active
+{
+    background-color: mix(@active_hover_bg_color, @button_bg_suggested, .5);
+}
+
+button:disabled
+{
+    -gtk-icon-shadow: 1px 1px 0px white;
+}
+
+button.image-button:disabled
+{
+    background-color: @bg_color;
+}
+
+button:selected, button:indeterminate
+{
+    /* ??? */
+    color: red;
+    background-color:blue;
+}
+
+button:focus
+{
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+/* Image: https://developer.gnome.org/gtk3/stable/GtkImage.html
+
+GtkImage has a single CSS node with the name image.
+*/
+
+image
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+image:disabled
+{
+    background: none;
+    -gtk-icon-effect: dim;
+}
+
+/* Box: https://developer.gnome.org/gtk3/stable/GtkBox.html
+
+GtkBox uses a single CSS node with name box.
+
+In horizontal orientation, the nodes of the children are always arranged from left to right. So :first-child will always select the leftmost child, regardless of text direction.
+*/
+
+box
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+box:disabled
+{
+    background: none;
+}
+
+
+/* Arrow: https://developer.gnome.org/gtk3/stable/GtkArrow.html */
+
+arrow
+{
+    border: none;
+    color: inherit;
+    background: none;
+    min-width: 12px;
+    min-height: 12px;
+    -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
+}
+
+arrow:disabled
+{
+    -gtk-icon-shadow: 1px 1px 0px white;
+}
+
+arrow:checked
+{
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+/* Entry: https://developer.gnome.org/gtk3/stable/GtkEntry.html
+
+entry
+├── image.left
+├── image.right
+├── undershoot.left
+├── undershoot.right
+├── [selection]
+├── [progress[.pulse]]
+╰── [window.popup]
+
+GtkEntry has a main node with the name entry. Depending on the properties of the entry, the style classes .read-only and .flat may appear. The style classes .warning and .error may also be used with entries.
+
+When the entry shows icons, it adds subnodes with the name image and the style class .left or .right, depending on where the icon appears.
+
+When the entry has a selection, it adds a subnode with the name selection.
+
+When the entry shows progress, it adds a subnode with the name progress. The node has the style class .pulse when the shown progress is pulsing.
+
+The CSS node for a context menu is added as a subnode below entry as well.
+
+The undershoot nodes are used to draw the underflow indication when content is scrolled out of view. These nodes get the .left and .right style classes added depending on where the indication is drawn.
+
+When touch is used and touch selection handles are shown, they are using CSS nodes with name cursor-handle. They get the .top or .bottom style class depending on where they are shown in relation to the selection. If there is just a single handle for the text cursor, it gets the style class .insertion-cursor.
+*/
+
+entry
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+    padding: 2px;
+}
+
+entry:disabled
+{
+    background-color: @disabled_base_color;
+}
+
+entry:focus
+{
+    border-color: @focus_color;
+}
+
+entry:hover
+{
+    background-color: @hover_bg_color;
+}
+
+undershoot /* Meld */
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+selection
+{
+    border:none;
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+/* CellView: https://developer.gnome.org/gtk3/stable/GtkCellView.html
+
+GtkCellView has a single CSS node with name cellview.
+*/
+
+cellview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Combobox: https://developer.gnome.org/gtk3/stable/GtkComboBox.html
+
+combobox
+├── box.linked
+│   ╰── button.combo
+│       ╰── box
+│           ├── cellview
+│           ╰── arrow
+╰── window.popup
+
+A normal combobox contains a box with the .linked class, a button with the .combo class and inside those buttons, there are a cellview and an arrow.
+
+combobox
+├── box.linked
+│   ├── entry.combo
+│   ╰── button.combo
+│       ╰── box
+│           ╰── arrow
+╰── window.popup
+
+A GtkComboBox with an entry has a single CSS node with name combobox. It contains a bx with the .linked class and that box contains an entry and a button, both with the .combo class added. The button also contains another node with name arrow.
+*/
+
+combobox
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+combobox > box.linked > button.combo > box > cellview
+{
+    border-right: 1px solid @border_color;
+    margin-right: 3px;
+}
+
+combobox > box.linked > button.combo > box > arrow
+{
+    min-height: 16px;
+    min-width: 16px;
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+window#gtk-combobox-popup-window > scrolledwindow > treeview > treeview
+{
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+window#gtk-combobox-popup-window > scrolledwindow > treeview > treeview:selected
+{
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+window#gtk-combobox-popup-window > scrolledwindow > treeview > treeview:disabled
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_bg_color;
+}
+
+/* Label: https://developer.gnome.org/gtk3/stable/GtkLabel.html
+
+label
+├── [selection]
+├── [link]
+┊
+╰── [link]
+
+GtkLabel has a single CSS node with the name label. A wide variety of style classes may be applied to labels, such as .title, .subtitle, .dim-label, etc. In the GtkShortcutsWindow, labels are used wth the .keycap style class.
+
+If the label has a selection, it gets a subnode with name selection.
+
+If the label has links, there is one subnode per link. These subnodes carry the link or visited state depending on whether they have been visited.
+*/
+
+label
+{
+    border: 1px solid transparent;
+    color: inherit;
+    background: none;
+    text-decoration-line: inherit;
+}
+
+/* Firefox address bar */
+
+label.view
+{
+    border: none;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+label:disabled
+{
+    background: none;
+}
+
+/* Check button: https://developer.gnome.org/gtk3/stable/GtkCheckButton.html
+
+checkbutton
+├── check
+╰── <child>
+
+A GtkCheckButton with indicator (see gtk_toggle_button_set_mode()) has a main CSS node with name checkbutton and a subnode with name check.
+
+button.check
+├── check
+╰── <child>
+
+A GtkCheckButton without indicator changes the name of its main node to button and adds a .check style class to it. The subnode is invisible in this case.
+*/
+
+/* Radio button: https://developer.gnome.org/gtk3/stable/GtkRadioButton.html
+
+radiobutton
+├── radio
+╰── <child>
+
+A GtkRadioButton with indicator (see gtk_toggle_button_set_mode()) has a main CSS node with name radiobutton and a subnode with name radio.
+
+button.radio
+├── radio
+╰── <child>
+
+A GtkRadioButton without indicator changes the name of its main node to button and adds a .radio style class to it. The subnode is invisible in this case.
+*/
+
+checkbutton,
+radiobutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+check,
+radio
+{
+    border: 1px solid @border_color;
+    color: @selected_bg_color;
+    background-color: @base_color;
+    margin:3px;
+    min-width: 13px;
+    min-height: 13px;
+    -gtk-icon-shadow: 0 0 transparent;
+    -gtk-icon-source: none;
+}
+
+radio
+{
+    border-radius: 50%;
+}
+
+check:checked
+{
+    -gtk-icon-source: -gtk-icontheme('object-select-symbolic');
+}
+
+check:indeterminate
+{
+    -gtk-icon-source: -gtk-icontheme('list-remove-symbolic');
+}
+
+radio:checked
+{
+    -gtk-icon-source: -gtk-icontheme('media-record-symbolic');
+}
+
+radio:indeterminate
+{
+    -gtk-icon-source: -gtk-icontheme('list-remove-symbolic');
+}
+
+radio:disabled,
+check:disabled,
+radio:disabled:hover,
+check:disabled:hover,
+radio:disabled:focus,
+check:disabled:focus
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_base_color;
+}
+
+radio:checked:hover,
+check:checked:hover,
+radio:focus,
+check:focus
+{
+    color: @selected_bg_color;
+    background-color: @base_color;
+}
+
+checkbutton:focus > label,
+radiobutton:focus > label
+{
+    border: 1px solid @focus_color;
+}
+
+checkbutton:disabled,
+radiobutton:disabled
+{
+    background: none;
+}
+
+checkbutton:hover,
+radiobutton:hover
+{
+    background-color: @hover_bg_color;
+}
+
+check:hover,
+radio:hover,
+check:active:hover,
+radio:active:hover
+{
+    background-color: @base_color;
+}
+
+/* FileChooserButton: https://developer.gnome.org/gtk3/stable/GtkFileChooserButton.html */
+
+filechooserbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Stackcombo: ???
+
+This is used in GTK Inspector.
+*/
+
+stackcombo
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Tooltip: https://developer.gnome.org/gtk3/stable/GtkTooltip.html
+ */
+
+tooltip,
+window.tooltip /* Firefox */
+{
+    border: 1px solid @border_color;
+    color: @tooltip_fg_color;
+    background-color: @tooltip_bg_color;
+}
+
+tooltip > decoration
+{
+    border: none;
+    color: inherit;
+    background: none;
+    box-shadow: 8px 8px 4px 0px alpha(black, .5);
+}
+
+/* ColorSwatch */
+
+colorswatch
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @bg_color_lighter;
+}
+
+/* Overlay: https://developer.gnome.org/gtk3/stable/GtkOverlay.html */
+
+overlay /* for colorswatch */
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+overlay:focus
+{
+    margin: 1px;
+    box-shadow:
+    0px 0px 0px 3px @focus_color_darker,
+    0px 0px 0px 2px @focus_color_lighter,
+    0px 0px 0px 1px @focus_color_darker;
+}
+
+overlay:selected
+{
+    -gtk-icon-shadow: 0px 0px 2px black;
+    background: none;
+}
+
+overlay:hover
+{
+    background-color: alpha(@hover_color, .5);
+}
+
+/* SpinButton: https://developer.gnome.org/gtk3/stable/GtkSpinButton.html
+
+spinbutton.horizontal
+├── entry
+│   ╰── ...
+├── button.down
+╰── button.up
+
+spinbutton.vertical
+├── button.up
+├── entry
+│   ╰── ...
+╰── button.down
+
+GtkSpinButtons main CSS node has the name spinbutton. It creates subnodes for the entry and the two buttons, with these names. The button nodes have the style classes .up and .down. The GtkEntry subnodes (if present) are put below the entry node. The orientation of the spin button is reflected in the .vertical or .horizontal style class on the main node.
+*/
+
+spinbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Strange: Keep the mouse button on a (spinbutton > button) pressed, and it
+   will have pseudo-class :active, not :active:hover like other buttons. Maybe
+   this is related to the fact that the spinbutton keeps counting while the
+   mouse button is pressed. Anyway, the appearance for :active should be the
+   same as for :active:hover on a normal button. */
+spinbutton > button:active
+{
+    background-color: @active_hover_bg_color;
+}
+
+/* Separator: https://developer.gnome.org/gtk3/stable/GtkSeparator.html
+
+GtkSeparator has a single CSS node with name separator. The node gets one of the .horizontal or .vertical style classes.
+*/
+
+separator
+{
+    border: none;
+    color: @border_color; /* Firefox */
+    background-color: @border_color;
+}
+
+separator.horizontal
+{
+    min-height: 1px;
+    margin: 4px 0px;
+}
+
+separator.vertical
+{
+    min-width: 1px;
+    margin: 0px 4px;
+}
+
+headerbar separator
+{
+    background-color: alpha(white, .5);
+}
+
+/* Switch: https://developer.gnome.org/gtk3/stable/GtkSwitch.html
+
+switch
+╰── slider
+
+GtkSwitch has two css nodes, the main node with the name switch and a subnode named slider. Neither of them is using any style classes.
+*/
+
+switch
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+}
+
+switch > slider
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @slider_bg_color;
+}
+
+switch:hover > slider
+{
+    background-color: alpha(@hover_bg_color_lighter, .8);
+}
+
+switch:focus > slider
+{
+    border-color: @focus_color;
+}
+
+switch:disabled > slider
+{
+    background-color: @disabled_bg_color;
+}
+
+/* LevelBar: https://developer.gnome.org/gtk3/stable/GtkLevelBar.html
+
+levelbar[.discrete]
+╰── trough
+    ├── block.filled.level-name
+    ┊
+    ├── block.empty
+    ┊
+
+GtkLevelBar has a main CSS node with name levelbar and one of the style classes .discrete or .continuous and a subnode with name trough. Below the trough node are a number of nodes with name block and style class .filled or .empty. In continuous mode, there is exactly one node of each, in discrete mode, the number of filled and unfilled nodes corresponds to blocks that are drawn. The block.filled nodes also get a style class .level-name corresponding to the level for the current value.
+
+In horizontal orientation, the nodes are always arranged from left to right, regardless of text direction.
+*/
+
+levelbar
+{
+}
+
+levelbar > trough
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @checked_bg_color;
+    min-width: 11px;
+    min-height: 11px;
+    padding: 1px;
+}
+
+levelbar > trough > block
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @base_color;
+    margin: 1px;
+}
+
+levelbar > trough > block.filled
+{
+    background-color: @selected_bg_color;
+}
+
+/* ProgressBar: https://developer.gnome.org/gtk3/stable/GtkProgressBar.html
+
+progressbar[.osd]
+╰── trough
+    ├── [text]
+    ╰── progress[.pulse]
+
+GtkProgressBar has a main CSS node with name progressbar and subnodes with names text, trough and progress. The text subnode is only present if text is shown. The progress subnode has the style class .pulse when in activity mode. It gets the style classes .left, .right, .top or .bottom added when the progress 'touches' the corresponding end of the GtkProgressBar. The .osd class on the progressbar node is for use in overlays like the one epiphany has for page loading progress.
+*/
+
+progressbar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+progressbar > trough
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @trough_bg_color;
+}
+
+progress
+{
+    border: 1px solid @selected_border_color;
+    color: inherit;
+    background-color: @selected_bg_color;
+}
+
+progressbar.horizontal > trough
+{
+    min-height: 18px;
+}
+
+progressbar.horizontal > trough > progress
+{
+    min-height: 16px;
+}
+
+progressbar.vertical > trough
+{
+    min-width: 18px;
+}
+
+progressbar.vertical > trough > progress
+{
+    min-width: 16px;
+}
+
+progressbar >  text /* NOT progressbar > trough > text */
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Scale: https://developer.gnome.org/gtk3/stable/GtkScale.html
+
+scale[.fine-tune]
+├── marks.top
+│   ├── mark
+│   ┊    ├── [label]
+│   ┊    ╰── indicator
+┊   ┊
+│   ╰── mark
+├── contents
+│   ╰── trough
+│       ├── slider
+│       ├── [highlight]
+│       ╰── [fill]
+╰── marks.bottom
+    ├── mark
+    ┊    ├── indicator
+    ┊    ╰── [label]
+    ╰── mark
+
+GtkScale has a main CSS node with name scale and a subnode for its contents, with subnodes named trough and slider.
+
+The main node gets the style class .fine-tune added when the scale is in 'fine-tuning' mode.
+
+If the scale has an origin (see gtk_scale_set_has_origin()), there is a subnode with name highlight below the trough node that is used for rendering the highlighted part of the trough.
+
+If the scale is showing a fill level (see gtk_range_set_show_fill_level()), there is a subnode with name fill below the trough node that is used for rendering the filled in part of the trough.
+
+If marks are present, there is a marks subnode before or after the contents node, below which each mark gets a node with name mark. The marks nodes get either the .top or .bottom style class.
+
+The mark node has a subnode named indicator. If the mark has text, it also has a subnode named label. When the mark is either above or left of the scale, the label subnode is the first when present. Otherwise, the indicator subnode is the first.
+*/
+
+scale
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale:disabled
+{
+    background: none;
+}
+
+scale > contents
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale:disabled > contents
+{
+    background: none;
+}
+
+scale > contents > trough
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @trough_bg_color;
+    margin: 5px;
+}
+
+scale > contents > trough > highlight
+{
+    border: none;
+    color: inherit;
+    background-color: @selected_bg_color;
+}
+
+
+scale > contents > trough > slider
+{
+    border: 1px solid @border_color;
+    border-radius: 50%;
+    color: inherit;
+    background-color: @slider_bg_color;
+    margin: -5px;
+    padding: 8px;
+
+}
+
+scale:hover
+{
+    background: none;
+}
+
+scale:hover > contents > trough
+{
+    background-color: @hover_bg_color;
+}
+
+
+scale:hover > contents > trough > highlight
+{
+    background-color: @hover_color;
+}
+
+scale:focus
+{
+    box-shadow: inset 0px 0px 0px 1px @focus_color;
+}
+
+scale > value
+{
+    border: 1px solid @border_color;
+    color: @tooltip_fg_color;
+    background-color: @tooltip_bg_color;
+    padding: 2px;
+}
+
+scale > marks
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale > marks > mark
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale > marks > mark > indicator
+{
+    border: none;
+    color: @border_color;
+    background-color: inherit;
+    min-width: 1px;
+    min-height: 8px;
+}
+
+/* ButtonBox: https://developer.gnome.org/gtk3/stable/GtkButtonBox.html
+
+GtkButtonBox uses a single CSS node with name buttonbox.
+*/
+
+buttonbox
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Frame: https://developer.gnome.org/gtk3/stable/GtkFrame.html
+
+frame
+├── border
+├── <label widget>
+╰── <child>
+
+GtkFrame has a main CSS node with name frame and a subnode with name border. The border node is used to render the visible border. The style class .flat can appear with the main node.
+*/
+
+frame
+{
+    border: none;
+    border-color: @border_color; /* Firefox address bar and menus */
+    color: inherit;
+    background: none;
+}
+
+frame.app-notification
+{
+    color: red;
+    background-color: blue;
+}
+
+frame > border
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+}
+
+frame.app-notification > border
+{
+    padding: 3px;
+}
+
+/* Paned: https://developer.gnome.org/gtk3/stable/GtkPaned.html
+
+paned
+├── <child>
+├── separator[.wide]
+╰── <child>
+
+GtkPaned has a main CSS node with name paned, and a subnode for the separator with name separator. The subnodes gets a .wide style class when the paned is supposed to be wide.
+
+In horizontal orientation, the nodes of the children are always arranged from left to right. So :first-child will always select the leftmost child, regardless of text direction.
+*/
+
+paned
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+paned > separator
+{
+    border: none;
+    color: inherit;
+    background-color: @border_color;
+    min-width: 3px;
+    min-height: 3px;
+}
+
+paned > separator:hover
+{
+    background-color: @hover_color;
+}
+
+/* Notebook: https://developer.gnome.org/gtk3/stable/GtkNotebook.html
+
+notebook
+├── header.top
+│   ├── [<action widget>]
+│   ├── tabs
+│   │   ├── [arrow]
+│   │   ├── tab
+│   │   │   ╰── <tab label>
+┊   ┊   ┊
+│   │   ├── tab[.reorderable-page]
+│   │   │   ╰── <tab label>
+│   │   ╰── [arrow]
+│   ╰── [<action widget>]
+│
+╰── stack
+    ├── <child>
+    ┊
+    ╰── <child>
+
+GtkNotebook has a main CSS node with name notebook, a subnode with name header and below that a subnode with name tabs which contains one subnode per tab with name tab.
+
+If action widgets are present, their CSS nodes are placed next to the tabs node. If the notebook is scrollable, CSS nodes with name arrow are placed as first and last child of the tabs node.
+
+The main node gets the .frame style class when the notebook has a border (see gtk_notebook_set_show_border()).
+
+The header node gets one of the style class .top, .bottom, .left or .right, depending on where the tabs are placed. For reorderable pages, the tab node gets the .reorderable-page class.
+
+A tab node gets the .dnd style class while it is moved with drag-and-drop.
+
+The nodes are always arranged from left-to-right, regarldess of text direction.
+*/
+
+notebook
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+notebook > header
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+notebook > header > tabs
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+notebook > header.top > tabs,
+notebook > header.bottom > tabs
+{
+    margin-left: 1px;
+}
+
+notebook > header.left > tabs,
+notebook > header.right > tabs
+{
+    margin-top: 1px;
+}
+
+notebook > header > tabs > tab
+{
+    border: none;
+    color: inherit;
+    background-color: @checked_bg_color;
+    /* top right bottom left */
+    padding: 2px 6px 2px 6px;
+}
+
+notebook > header.top > tabs > tab
+{
+    margin-top: 1px;
+    border-top: 1px solid white;
+    border-right: 1px solid @border_color;
+}
+
+notebook > header.bottom > tabs > tab
+{
+    margin-bottom: 1px;
+    border-bottom: 1px solid @border_color;
+    border-right: 1px solid @border_color;
+}
+
+notebook > header.left > tabs > tab
+{
+    margin-left: 1px;
+    border-left: 1px solid white;
+    border-bottom: 1px solid @border_color;
+}
+
+notebook > header.right > tabs > tab
+{
+    margin-right: 1px;
+    border-right: 1px solid @border_color;
+    border-bottom: 1px solid @border_color;
+}
+
+notebook > header.top > tabs > tab:first-child,
+notebook > header.bottom > tabs > tab:first-child
+{
+    box-shadow: -1px 0 white;
+}
+
+notebook > header.left > tabs > tab:first-child,
+notebook > header.right > tabs > tab:first-child
+{
+    box-shadow: 0 -1px white;
+}
+
+notebook > header > tabs > tab:checked
+{
+    background-color: @bg_color_lighter;
+}
+
+notebook > header.top > tabs > tab:checked
+{
+    margin-bottom: -1px;
+    margin-top: 0px;
+    box-shadow: -1px 0 white;
+}
+
+notebook > header.bottom > tabs > tab:checked
+{
+    margin-top: -1px;
+    margin-bottom: 0px;
+    box-shadow: -1px 0 white;
+}
+
+notebook > header.left > tabs > tab:checked
+{
+    margin-right: -1px;
+    margin-left: 0px;
+    box-shadow: 0 -1px white;
+}
+
+notebook > header.right > tabs > tab:checked
+{
+    margin-left: -1px;
+    margin-right: 0px;
+    box-shadow: 0 -1px white;
+}
+
+notebook:focus > header > tabs > tab:checked > label
+{
+    border: 1px solid @focus_color;
+}
+
+notebook > stack
+{
+    border: 1px outset @border_color;
+    color: inherit;
+    background-color: @bg_color_lighter;
+}
+
+/* Statusbar: https://developer.gnome.org/gtk3/stable/GtkStatusbar.html
+
+GtkStatusbar has a single CSS node with name statusbar.
+*/
+
+statusbar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+statusbar > frame > border
+{
+    border: 1px inset @border_color;
+}
+
+/* ScrolledWindow: https://developer.gnome.org/gtk3/stable/GtkScrolledWindow.html
+
+GtkScrolledWindow has a main CSS node with name scrolledwindow.
+
+It uses subnodes with names overshoot and undershoot to draw the overflow and underflow indications. These nodes get the .left, .right, .top or .bottom style class added depending on where the indication is drawn.
+
+GtkScrolledWindow also sets the positional style classes (.left, .right, .top, .bottom) and style classes related to overlay scrolling (.overlay-indicator, .dragging, .hovering) on its scrollbars.
+
+If both scrollbars are visible, the area where they meet is drawn with a subnode named junction.
+*/
+
+scrolledwindow
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scrolledwindow.frame
+{
+    border: 1px solid @border_color;
+}
+
+scrolledwindow.frame > viewport.frame /* No double borders, eg. Gnome calculator */
+{
+    border: none;
+}
+
+scrolledwindow > overshoot
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    background-position: center top;
+
+
+}
+
+scrolledwindow > overshoot.top
+{
+    background-image: -gtk-gradient (radial,
+                                     .5 0, 0,
+                                     .5 0, .5,
+                                     from (@backdrop_border_color),
+                                     to (alpha(@backdrop_border_color, 0)));
+    background-position: center top;
+}
+
+scrolledwindow > overshoot.bottom {
+    background-image: -gtk-gradient (radial,
+                                     .5 1, 0,
+                                     .5 1, .5,
+                                     from (@backdrop_border_color),
+                                     to (alpha(@backdrop_border_color, 0)));
+    background-position: center bottom;
+}
+
+/* undershoot: see "entry" */
+
+scrolledwindow > junction
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-color: @trough_bg_color;
+}
+
+/* Scrollbar: https://developer.gnome.org/gtk3/stable/GtkScrollbar.html
+
+scrollbar[.fine-tune]
+╰── contents
+    ├── [button.up]
+    ├── [button.down]
+    ├── trough
+    │   ╰── slider
+    ├── [button.up]
+    ╰── [button.down]
+
+GtkScrollbar has a main CSS node with name scrollbar and a subnode for its contents, with subnodes named trough and slider.
+
+The main node gets the style class .fine-tune added when the scrollbar is in 'fine-tuning' mode.
+
+If steppers are enabled, they are represented by up to four additional subnodes with name button. These get the style classes .up and .down to indicate in which direction they are moving.
+
+Other style classes that may be added to scrollbars inside GtkScrolledWindow include the positional classes (.left, .right, .top, .bottom) and style classes related to overlay scrolling (.overlay-indicator, .dragging, .hovering).
+*/
+
+scrollbar
+{
+    border: none;
+    color: inherit;
+    background-color: inherit;
+}
+
+scrollbar > contents
+{
+    border: none;
+    color: inherit;
+    background-color: inherit;
+}
+
+scrollbar > contents > button
+{
+    min-width: 13px;
+    min-height: 13px;
+    padding: 0px;
+    border-style: solid;
+}
+
+scrollbar.vertical > contents > button.up
+{
+    -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+}
+
+scrollbar.vertical > contents > button.down
+{
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+scrollbar.horizontal > contents > button.up
+{
+    -gtk-icon-source: -gtk-icontheme('pan-start-symbolic');
+}
+
+scrollbar.horizontal > contents > button.down
+{
+    -gtk-icon-source: -gtk-icontheme('pan-end-symbolic');
+}
+
+scrollbar > contents > trough, scrollbar > trough
+{
+    border: none;
+    color: inherit;
+    background-color: @trough_bg_color;
+}
+
+scrollbar.vertical > contents > trough, scrollbar.vertical > trough
+{
+    border-top: none;
+    border-bottom: none;
+}
+
+scrollbar.horizontal > contents > trough, scrollbar.horizontal > trough
+{
+    border-left: none;
+    border-right: none;
+}
+
+scrollbar > contents > trough > slider, scrollbar > trough > slider
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @slider_bg_color;
+    min-width: 13px;
+    min-height: 13px;
+}
+
+scrollbar.vertical > contents > button.up:disabled
+{
+    border-bottom: none;
+}
+
+scrollbar.vertical > contents > button.down:disabled
+{
+    border-top: none;
+}
+
+scrollbar.horizontal > contents > button.up:disabled
+{
+    border-right: none;
+}
+
+scrollbar.horizontal > contents > button.down:disabled
+{
+    border-left: none;
+}
+
+/* TreeView: https://developer.gnome.org/gtk3/stable/GtkTreeView.html
+
+treeview.view
+├── header
+│   ├── <column header>
+┊   ┊
+│   ╰── <column header>
+│
+╰── [rubberband]
+
+GtkTreeView has a main CSS node with name treeview and style class .view. It has a subnode with name header, which is the parent for all the column header widgets' CSS nodes. For rubberband selection, a subnode with name rubberband is used.
+*/
+
+treeview
+{
+    border: none;
+    color: inherit;
+    background-color: @base_color;
+}
+
+treeview > header
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+treeview > header > button > box > widget
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+treeview > header > button > box > widget > label
+{
+    border: none;
+}
+
+treeview > treeview:selected:hover
+{
+    background-color: @hover_color;
+}
+
+/* Spinner: https://developer.gnome.org/gtk3/stable/GtkSpinner.html
+
+GtkSpinner has a single CSS node with the name spinner.
+*/
+
+@keyframes spin
+{
+    to
+    {
+        -gtk-icon-transform: rotate(1turn);
+    }
+}
+
+spinner
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: none;
+}
+
+spinner:checked
+{
+    -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+    animation: spin 1s linear infinite;
+}
+
+spinner:disabled
+{
+    background: none;
+}
+
+/* Grid: https://developer.gnome.org/gtk3/stable/GtkGrid.html
+
+GtkGrid uses a single CSS node with name grid.
+*/
+
+grid
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+grid.vertical
+{
+    border-bottom: 1px solid @border_color;
+}
+
+grid.vertical:last-child
+{
+    border-bottom: none;
+}
+
+/* Menu: https://developer.gnome.org/gtk3/stable/GtkMenu.html
+
+menu
+├── arrow.top
+├── <child>
+┊
+├── <child>
+╰── arrow.bottom
+
+The main CSS node of GtkMenu has name menu, and there are two subnodes with name arrow, for scrolling menu arrows. These subnodes get the .top and .bottom style classes. */
+
+menu
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+menuitem
+{
+    border: none;
+    color: @fg_color; /* Firefox */
+    background: none;
+    padding: 2px 6px;
+}
+
+menuitem:hover
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+accelerator
+{
+    color: inherit;
+}
+
+/* ModelButton: https://developer.gnome.org/gtk3/stable/GtkModelButton.html
+
+modelbutton
+├── <child>
+╰── check
+
+modelbutton
+├── <child>
+╰── radio
+
+modelbutton
+├── <child>
+╰── arrow
+
+GtkModelButton has a main CSS node with name modelbutton, and a subnode, which will have the name check, radio or arrow, depending on the role of the button and whether it has a menu name set.
+
+The subnode is positioned before or after the content nodes and gets the .left or .right style class, depending on where it is located.
+
+button.model
+├── <child>
+╰── check
+
+Iconic model buttons (see “iconic”) change the name of their main node to button and add a .model style class to it. The indicator subnode is invisible in this case.
+*/
+
+modelbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+modelbutton:hover,
+modelbutton:active:hover
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+modelbutton:disabled
+{
+    background: none;
+}
+
+
+/* HeaderBar: https://developer.gnome.org/gtk3/stable/GtkHeaderBar.html
+*/
+headerbar
+{
+    border: 1px solid @focus_color_darker;
+    color: @selected_fg_color;
+    background-color: @focus_color_darker; /* A few subpixels around the rounded corners */
+    box-shadow: inset 0 1px @focus_color_highlight;
+    background-image: -gtk-gradient(
+       linear,
+       left top,
+       left bottom,
+       from (mix(@selected_bg_color, #aeaeae, .4)),
+       color-stop (.15, mix(@selected_bg_color, #050505, .15)),
+       to (mix(@selected_bg_color, #d7d7d7, .11)));
+    padding: 0px 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-left: -3px;
+    margin-right: -3px;
+    margin-top: -3px;
+    padding-top: 3px;
+    padding-bottom: 2px;
+}
+
+headerbar:backdrop
+{
+    border: 1px solid @backdrop_border_color;
+    background-color: @backdrop_border_color;
+    box-shadow: inset 0 1px mix(#dbdbdb, white, .2); /* #e2e2e2 */
+    background-image: -gtk-gradient(
+       linear,
+       left top,
+       left bottom,
+       from (mix(@bg_color_insensitive, #414141, .25)),
+       color-stop (.15, mix(@bg_color_insensitive, #262626, .15)),
+       to (mix(@bg_color_insensitive, #e5e5e5, .1)));
+}
+
+headerbar label.title
+{
+    text-shadow: 1px 1px @focus_color_darker;
+    font-weight: bold;
+    font-size: 110%;
+    font-family: DejaVuSans;
+}
+
+headerbar label.title:backdrop,
+headerbar label.subtitle:backdrop
+{
+    color: @disabled_fg_color;
+    text-shadow: none;
+}
+
+/* Viewport: https://developer.gnome.org/gtk3/stable/GtkViewport.html
+
+GtkViewport has a single CSS node with name viewport.*/
+
+viewport
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+viewport.frame
+{
+    border: 1px solid @border_color;
+}
+
+/* ListBox: https://developer.gnome.org/gtk3/stable/GtkListBox.html
+
+GtkListBox uses a single CSS node with name list. GtkListBoxRow uses a single CSS node with name row. The row nodes get the .activatable style class added when appropriate.
+*/
+
+list
+{
+    border: none;
+    color: inherit;
+    background-color: shade(@base_color, .975);
+}
+
+list > separator.horizontal
+{
+    background-color: @border_color;
+}
+
+row
+{
+    border: none;
+    color: inherit;
+    background: none;
+    padding: 3px;
+}
+
+row:nth-child(odd)
+{
+    background-color: shade(@base_color, .925);
+}
+
+row:nth-child(odd):hover
+{
+    background-color: @hover_bg_color;
+}
+
+row:nth-child(odd):active:hover
+{
+    background-color: @active_hover_bg_color;
+}
+
+row:nth-child(odd):selected
+{
+    background-color: @selected_bg_color;
+}
+
+row:nth-child(odd):selected:hover
+{
+    background-color: @hover_color;
+}
+
+
+row.activatable
+{
+
+}
+
+/* TextView: https://developer.gnome.org/gtk3/stable/GtkTextView.html
+
+textview.view
+├── border.top
+├── border.left
+├── text
+│   ╰── [selection]
+├── border.right
+├── border.bottom
+╰── [window.popup]
+
+GtkTextView has a main css node with name textview and style class .view, and subnodes for each of the border windows, and the main text area, with names border and text, respectively. The border nodes each get one of the style classes .left, .right, .top or .bottom.
+
+A node representing the selection will appear below the text node.
+
+If a context menu is opened, the window node will appear as a subnode of the main node.*/
+
+textview
+{
+    border: none;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+textview > text
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+textview > border /* Meld */
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-color: @trough_bg_color;
+}
+
+textview > window.popup
+{
+
+}
+
+/* Window: https://developer.gnome.org/gtk3/stable/GtkWindow.html
+
+window
+├── decoration
+╰── <child>
+
+GtkWindow has a main CSS node with name window and style class .background, and a subnode with name decoration.
+
+Style classes that are typically used with the main CSS node are .csd (when client-side decorations are in use), .solid-csd (for client-side decorations without invisible borders), .ssd (used by mutter when rendering server-side decorations). GtkWindow also represents window states with the following style classes on the main node: .tiled, .maximized, .fullscreen. Specialized types of window often add their own discriminating style classes, such as .popup or .tooltip.
+
+GtkWindow adds the .titlebar and .default-decoration style classes to the widget that is added as a titlebar child.
+*/
+
+window
+{
+    border: none;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+decoration /* for window, dialog etc. */
+{
+    border: none;
+    color: inherit;
+    background: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0px 0px 8px 6px alpha(black, 0.5),
+    0px 0px 0px 3px @focus_color_darker,
+    0px 0px 0px 2px @focus_color_lighter,
+    0px 0px 0px 1px @focus_color_darker;
+    margin: 6px; /* Area for resize "handles" */
+
+}
+
+decoration:backdrop
+{
+    box-shadow:   0px 0px 8px 6px alpha(black, 0.5),
+     0px 0px 0px 3px @backdrop_border_color,
+     0px 0px 0px 2px @bg_color;
+}
+
+window.popup > decoration /* Eg. menus */
+{
+    border-radius: 0;
+    box-shadow: 8px 8px 4px 0px alpha(black, .5);
+}
+
+/* Expander: https://developer.gnome.org/gtk3/stable/GtkExpander.html
+
+expander
+├── title
+│   ├── arrow
+│   ╰── <label widget>
+╰── <child>
+
+GtkExpander has three CSS nodes, the main node with the name expander, a subnode with name title and node below it with name arrow. Neither of them is using any style classes.
+*/
+expander
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+expander > title /* like Button */
+{
+    border: 1px outset @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+    padding: 3px;
+
+    border-style: solid; /* like flat button */
+}
+
+
+expander > title:hover
+{
+    border-style: outset;
+}
+
+expander > title:active,
+expander > title:checked /* not used */
+{
+    border-style: inset;
+}
+
+
+expander > title:checked
+{
+    background-color: @checked_bg_color;
+}
+
+expander > title:active
+{
+    background-color: @active_bg_color;
+}
+
+expander > title:hover
+{
+    background-color: @hover_bg_color;
+}
+
+expander > title:hover:active
+{
+    background-color: @active_hover_bg_color;
+}
+
+expander > title:focus
+{
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+/* FlowBox: https://developer.gnome.org/gtk3/stable/GtkFlowBox.html
+
+flowbox
+├── flowboxchild
+│   ╰── <child>
+├── flowboxchild
+│   ╰── <child>
+┊
+╰── [rubberband]
+
+GtkFlowBox uses a single CSS node with name flowbox. GtkFlowBoxChild uses a single CSS node with name flowboxchild. For rubberband selection, a subnode with name rubberband is used.*/
+
+flowbox
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+flowboxchild /* gtk3-widget-factory, Page 2, button "Select" */
+{
+    border: none;
+    color: inherit;
+    background: none;
+    margin: 2px;
+}
+
+
+flowboxchild:focus /* like overlay */
+{
+    box-shadow:
+    0px 0px 0px 3px @focus_color_darker,
+    0px 0px 0px 2px @focus_color_lighter,
+    0px 0px 0px 1px @focus_color_darker;
+}
+
+flowboxchild:selected
+{
+    -gtk-icon-shadow: 0px 0px 2px black;
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+/* Toolbar: https://developer.gnome.org/gtk3/stable/GtkToolbar.html
+
+GtkToolbar has a single CSS node with name toolbar.*/
+
+toolbar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+toolbar.inline-toolbar
+{
+    border: 1px solid @border_color;
+    background-color: @bg_color;
+    padding: 3px;
+}
+
+/* MenuBar: https://developer.gnome.org/gtk3/stable/GtkMenuBar.html
+
+GtkMenuBar has a single CSS node with name menubar.*/
+
+menubar
+{
+    border: none;
+    color: @fg_color; /* Firefox */
+    background-color: @bg_color;
+}
+
+/* IconView: https://developer.gnome.org/gtk3/stable/GtkIconView.html
+
+iconview.view
+╰── [rubberband]
+
+GtkIconView has a single CSS node with name iconview and style class .view. For rubberband selection, a subnode with name rubberband is used.
+*/
+
+iconview.view
+{
+    border: none;
+    color: inherit;
+    background: none;
+
+}
+
+iconview.view > iconview.view
+{
+    border: 1px solid @border_color;
+    background-color: @iconview_bg_color;
+}
+
+iconview.view > iconview.view:hover
+{
+    background-color: @hover_bg_color;
+}
+
+iconview.view > iconview.view:selected
+{
+    background-color: @selected_bg_color;
+}
+
+/* Widget: https://developer.gnome.org/gtk3/stable/GtkWidget.html
+
+Eg. Evince document background */
+
+widget
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* SearchBar: https://developer.gnome.org/gtk3/stable/GtkSearchBar.html
+
+GtkSearchBar has a single CSS node with name searchbar.
+*/
+
+searchbar /* Evince */
+{
+    border: none;
+    color: @selected_fg_color;
+    background-color: @searchbar_bg_color;
+}
+
+/* InfoBar: https://developer.gnome.org/gtk3/stable/GtkInfoBar.html
+
+GtkInfoBar has a single CSS node with name infobar. The node may get one of the style classes .info, .warning, .error or .question, depending on the message type.
+*/
+
+infobar
+{
+    border: none;
+    color: shade(@infobar_bg_color, .4);
+    background-color: @infobar_bg_color;
+}
+
+infobar.info
+{
+    color: shade(@tooltip_bg_color, .3);
+    background-color: @tooltip_bg_color;
+}
+
+infobar.warning
+{
+    color: shade(@warning_bg_color, .4);
+    background-color: @warning_bg_color;
+}
+
+infobar.question
+{
+    color: shade(@question_bg_color, .4);
+    background-color: @question_bg_color;
+}
+
+infobar.error
+{
+    color: shade(@error_bg_color, .4);
+    background-color: @error_bg_color;
+}
+
+/* Stack: https://developer.gnome.org/gtk3/stable/GtkStack.html
+
+GtkStack has a single CSS node named stack.
+*/
+
+stack
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* StackSidebar: https://developer.gnome.org/gtk3/stable/GtkStackSidebar.html
+
+GtkStackSidebar has a single CSS node with name stacksidebar and style class .sidebar.
+
+When circumstances require it, GtkStackSidebar adds the .needs-attention style class to the widgets representing the stack pages.
+*/
+
+stacksidebar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+stacksidebar > scrolledwindow > viewport > list > separator.horizontal
+{
+    margin: 0px;
+}
+
+/* Revealer: https://developer.gnome.org/gtk3/stable/GtkRevealer.html
+
+GtkRevealer has a single CSS node with name revealer.
+*/
+
+revealer
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Popover: https://developer.gnome.org/gtk3/stable/GtkPopover.html
+
+GtkPopover has a single css node called popover. It always gets the .background style class and it gets the .menu style class if it is menu-like (e.g. GtkPopoverMenu or created using gtk_popover_new_from_model().
+
+Particular uses of GtkPopover, such as touch selection popups or magnifiers in GtkEntry or GtkTextView get style classes like .touch-selection or .magnifier to differentiate from plain popovers.
+*/
+
+popover.background
+{
+    border: 1px solid @focus_color_darker;
+    color: @fg_color;
+    background-color: @bg_color_lighter;
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px 4px alpha(black, 0.5),
+    0px 0px 0px 2px @focus_color_darker,
+    0px 0px 0px 1px @focus_color_lighter;
+}
+
+/* Calendar: https://developer.gnome.org/gtk3/stable/GtkCalendar.html */
+
+calendar
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+
+/* Dialog: https://developer.gnome.org/gtk3/stable/GtkDialog.html */
+
+dialog
+{
+    border: none;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+/* ColorChooserDialog: https://developer.gnome.org/gtk3/stable/GtkColorChooserDialog.html */
+
+colorchooser
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* FileChooserDialog: https://developer.gnome.org/gtk3/stable/GtkFileChooserDialog.html */
+
+filechooser
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* FontChooserDialog: https://developer.gnome.org/gtk3/stable/GtkFontChooserDialog.html */
+
+fontchooser
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* AppChooserWidget: https://developer.gnome.org/gtk3/stable/GtkAppChooserWidget.html
+
+GtkAppChooserWidget has a single CSS node with name appchooser.
+*/
+
+appchooser
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* MessageDialog: https://developer.gnome.org/gtk3/stable/GtkMessageDialog.html */
+
+messagedialog
+{
+    border: none;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+
+/* PrintUnixDialog: https://developer.gnome.org/gtk3/stable/GtkPrintUnixDialog.html
+
+GtkPrintUnixDialog has a single CSS node with name printdialog.
+*/
+
+printdialog
+{
+    border: none;
+    color: @fg_color;
+    background: @bg_color;
+}
+
+paper
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @base_color;
+}
+
+/* PlacesSidebar: https://developer.gnome.org/gtk3/stable/GtkPlacesSidebar.html
+
+GtkPlacesSidebar uses a single CSS node with name placesidebar and style class .sidebar.
+
+Among the children of the places sidebar, the following style classes can be used:
+
+    .sidebar-new-bookmark-row for the 'Add new bookmark' row
+
+    .sidebar-placeholder-row for a row that is a placeholder
+
+    .has-open-popup when a popup is open for a row
+*/
+
+placessidebar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/*  File dialog: "Other Locations" */
+
+placesview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/*
+placesview > stack > frame > scrolledwindow > viewport > list,
+placesview > stack > frame > scrolledwindow > viewport > list > row:nth-child(odd)
+{
+    background-color: @base_color;
+}
+*/
+
+/* StackSwitcher: https://developer.gnome.org/gtk3/stable/GtkStackSwitcher.html
+
+GtkStackSwitcher has a single CSS node named stackswitcher and style class .stack-switcher.
+
+When circumstances require it, GtkStackSwitcher adds the .needs-attention style class to the widgets representing the stack pages.
+*/
+
+stackswitcher
+{
+    border: none;
+    color: inherit;
+    background: none;
+    color: green;
+    background-color: red;
+}
+
+/* Shortcut: https://developer.gnome.org/gtk3/stable/GtkShortcutsShortcut.html */
+
+shortcut
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* ToolPalette: https://developer.gnome.org/gtk3/stable/GtkToolPalette.html
+
+GtkToolPalette has a single CSS node named toolpalette.
+*/
+
+toolpalette
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+toolitemgroup
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Assistant: https://developer.gnome.org/gtk3/stable/GtkAssistant.html
+
+GtkAssistant has a single CSS node with the name assistant.
+*/
+
+assistant
+{
+    border: none;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+assistant box.sidebar > label
+{
+    padding: 3px;
+}
+
+assistant box.sidebar > label.highlight
+{
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+/* ToolButton: https://developer.gnome.org/gtk3/stable/GtkToolButton.html
+
+GtkToolButton has a single CSS node with name toolbutton.
+*/
+
+toolbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* ToolItem: https://developer.gnome.org/gtk3/stable/GtkToolItem.html */
+
+toolitem
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* ActionBar Eg. Firefox: file save dialog */
+
+actionbar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Firefox-specific settings */
+
+/* Firefox scrollbar arrows */
+
+window.background > widget > scrollbar > scrollbar
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+window.background > widget > scrollbar > scrollbar:disabled
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_bg_color;
+    -gtk-icon-shadow: 1px 1px 0px white;
+}
+
+window.background > widget > scrollbar > scrollbar.top:disabled
+{
+    border-bottom: none;
+}
+
+window.background > widget > scrollbar > scrollbar.bottom:disabled
+{
+    border-top: none;
+}
+
+window.background > widget > scrollbar > scrollbar.left:disabled
+{
+    border-right: none;
+}
+
+window.background > widget > scrollbar > scrollbar.right:disabled
+{
+    border-left: none;
+}
+
+/* Firefox tabbar */
+
+GtkWindow > .background
+{
+    border: none;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+/* Gnome disk utility */
+
+widget.gnome-disk-utility-grid
+{
+    color: @fg_color;
+}
+
+widget.gnome-disk-utility-grid:selected
+{
+    color: @selected_fg_color;
+}
+
+/* Evince */
+
+evsidebarthumbnails
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Evince-Previewer */
+
+evview
+{
+    background: inherit;
+}
+
+/* LibreOffice */
+
+GtkTextView.view
+{
+    border: none;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+GtkTextView.view:selected
+{
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+}
+
+/* xfce4-panel */
+
+window.xfce4-panel.panel button.flat
+{
+    border-color: transparent;
+}
+
+window.xfce4-panel.panel button.flat:hover
+{
+    border-color: @border_color;
+    border-style: outset;
+}
+
+window.xfce4-panel.panel button.flat:active,
+window.xfce4-panel.panel button.flat:checked
+{
+    border-color: @border_color;
+    border-style: inset;
+}
+
+window.xfce4-panel.panel > widget#systray-6 > frame > border
+{
+    border:none;
+}
+
+/* xfce4-panel: Workspace switcher */
+
+wnck-pager
+{
+    color: @base_color;
+    border: none;
+    background-color: shade(@desktop_color, 1.3);
+}
+
+wnck-pager:selected
+{
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+wnck-pager:hover
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
