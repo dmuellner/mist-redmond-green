@@ -11,5 +11,23 @@ For debugging purposes, the default style for unkown elements in the GTK3 theme 
 
 For Arch Linux, the AUR package [gtk-theme-mist-redmond-green](https://aur.archlinux.org/packages/gtk-theme-mist-redmond-green/) is available.
 
+Screenshots:
+* A widget factory - Gtk2
 
+  ![A widget factory - Gtk2](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/awf-gtk2.png)
 
+* A widget factory - Gtk3
+
+  ![A widget factory - Gtk3](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/awf-gtk3.png)
+
+* GTK Widget Factory, Page 1
+
+   ![GTK Widget Factory, Page 1](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/gtk3-widget-factory1.png)
+
+* GTK Widget Factory, Page 2
+
+   ![GTK Widget Factory, Page 2](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/gtk3-widget-factory2.png)
+
+* GTK Widget Factory, Page 1
+
+   ![GTK Widget Factory, Page 1](https://raw.githubusercontent.com/dmuellner/mist-redmond-green/master/screenshots/gtk3-widget-factory1.png)
