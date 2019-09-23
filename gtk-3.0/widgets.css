@@ -2496,3 +2496,46 @@ wnck-pager:hover
     color: @selected_fg_color;
     background-color: @hover_color;
 }
+
+/* Alt-Tab switcher */
+
+#xfwm-tabwin {
+    padding: 12px;
+    background-color: @bg_color;
+    color: @fg_color;
+    border-radius: 12px;
+    border: 1px solid @border_color;
+    -XfwmTabwinWidget-icon-size: 128px;
+    -XfwmTabwinWidget-preview-size: 128px;
+}
+
+#xfwm-tabwin button {
+    border: 1px solid @border_color;
+    background-color: @desktop_color;
+    color: @selected_fg_color;
+    font-weight: bold;
+    border-radius: 6px;
+    box-shadow: 8px 8px 4px 0px alpha(black, .5);
+    margin-bottom:20px;
+}
+
+#xfwm-tabwin.tabwin-app-grid button {
+    min-width: 128px;
+    min-height: 128px;
+}
+
+#xfwm-tabwin button:active,
+#xfwm-tabwin button:active:hover {
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;;
+}
+
+#xfwm-tabwin button:hover {
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+#xfwm-tabwin button:checked,
+#xfwm-tabwin button:checked:hover { /* Debugging */
+    background-color: yellow;
+}
