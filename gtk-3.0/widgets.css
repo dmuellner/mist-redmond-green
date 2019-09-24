@@ -1789,6 +1789,12 @@ textview > text
     background: none;
 }
 
+textview.sourceview > text, /* For gnome-calculator 3.30.1 */
+textview.info-view > text
+{
+  background-color: @base_color;
+}
+
 textview > border /* Meld */
 {
     border: none;
