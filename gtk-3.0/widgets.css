@@ -2545,3 +2545,12 @@ wnck-pager:hover
 #xfwm-tabwin button:checked:hover { /* Debugging */
     background-color: yellow;
 }
+
+/* For gnome-calculator 3.36.0 */
+mathconverter {
+    border: 1px solid @border_color;
+    padding: 5px;
+    color: @fg_color;
+    background-color: @bg_color_darker;
+
+}
