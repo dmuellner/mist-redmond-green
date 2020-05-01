@@ -2531,26 +2531,22 @@ wnck-pager:hover
 }
 
 #xfwm-tabwin button:active,
-#xfwm-tabwin button:active:hover {
+#xfwm-tabwin button:checked {
     color: @selected_fg_color;
-    background-color: @selected_bg_color;;
+    background-color: @selected_bg_color;
+    border-color: @selected_border_color;
 }
 
-#xfwm-tabwin button:hover {
+#xfwm-tabwin button:hover,
+#xfwm-tabwin button:active:hover,
+#xfwm-tabwin button:checked:hover {
     color: @selected_fg_color;
     background-color: @hover_color;
 }
 
-#xfwm-tabwin button:checked,
-#xfwm-tabwin button:checked:hover { /* Debugging */
-    background-color: yellow;
-}
-
 /* For gnome-calculator 3.36.0 */
 mathconverter {
-    border: 1px solid @border_color;
-    padding: 5px;
-    color: @fg_color;
-    background-color: @bg_color_darker;
-
+    border: none;
+    color: inherit;
+    background: none;
 }

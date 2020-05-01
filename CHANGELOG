@@ -35,3 +35,8 @@ Version 1.0.6, 09/23/2019
 Version 1.0.7, 04/15/2020
 
   • Fixes for gnome-calculator
+
+Version 1.0.8, 05/01/2020
+
+  • Update for gnome-calculator, tested with 3.36.0
+  • Fix for Xfwm-Tabwin, tested with GTK+ 3.24.18
