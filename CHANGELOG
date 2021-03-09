@@ -40,3 +40,7 @@ Version 1.0.8, 05/01/2020
 
   • Update for gnome-calculator, tested with 3.36.0
   • Fix for Xfwm-Tabwin, tested with GTK+ 3.24.18
+
+Version 1.0.9, 03/09/2021
+
+  • Update for message dialog title bar, tested with GTK+ 3.24.26

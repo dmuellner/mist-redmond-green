@@ -1634,7 +1634,7 @@ modelbutton:disabled
 
 /* HeaderBar: https://developer.gnome.org/gtk3/stable/GtkHeaderBar.html
 */
-headerbar
+headerbar, box.titlebar
 {
     border: 1px solid @focus_color_darker;
     color: @selected_fg_color;
@@ -1657,7 +1657,7 @@ headerbar
     padding-bottom: 2px;
 }
 
-headerbar:backdrop
+headerbar:backdrop, box.titlebar:backdrop
 {
     border: 1px solid @backdrop_border_color;
     background-color: @backdrop_border_color;
@@ -1671,7 +1671,7 @@ headerbar:backdrop
        to (mix(@bg_color_insensitive, #e5e5e5, .1)));
 }
 
-headerbar label.title
+headerbar label.title, box.titlebar label.title
 {
     text-shadow: 1px 1px @focus_color_darker;
     font-weight: bold;
@@ -1679,8 +1679,8 @@ headerbar label.title
     font-family: DejaVuSans;
 }
 
-headerbar label.title:backdrop,
-headerbar label.subtitle:backdrop
+headerbar label.title:backdrop, box.titlebar label.title:backdrop,
+headerbar label.subtitle:backdrop, box.titlebar label.subtitle:backdrop
 {
     color: @disabled_fg_color;
     text-shadow: none;
