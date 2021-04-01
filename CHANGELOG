@@ -51,4 +51,8 @@ Version 1.0.10, 03/19/2021
 
 Version 1.0.11, 03/27/2021
 
-  • Update HandBrake, tested with GTK+ 3.24.27
+  • Update for HandBrake, tested with GTK+ 3.24.27
+
+Version 1.0.12, 04/01/2021
+
+  • Update for Evince, tested with GTK+ 3.24.27
