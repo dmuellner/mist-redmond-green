@@ -110,6 +110,9 @@ button
     padding: 3px;
 }
 
+button.rounded-button {
+    border: 1px solid @border_color;
+}
 
 button.image-button
 {
@@ -1712,7 +1715,7 @@ list
 {
     border: none;
     color: inherit;
-    background-color: shade(@base_color, .975);
+    background: none;
 }
 
 list > separator.horizontal
@@ -1723,9 +1726,14 @@ list > separator.horizontal
 row
 {
     border: none;
-    color: inherit;
+    color: @fg_color;
     background: none;
     padding: 3px;
+}
+
+row:nth-child(even)
+{
+    background-color: shade(@base_color, .975);
 }
 
 row:nth-child(odd)
@@ -1733,22 +1741,22 @@ row:nth-child(odd)
     background-color: shade(@base_color, .925);
 }
 
-row:nth-child(odd):hover
+row:hover
 {
     background-color: @hover_bg_color;
 }
 
-row:nth-child(odd):active:hover
+row:active:hover
 {
     background-color: @active_hover_bg_color;
 }
 
-row:nth-child(odd):selected
+row:selected
 {
     background-color: @selected_bg_color;
 }
 
-row:nth-child(odd):selected:hover
+row:selected:hover
 {
     background-color: @hover_color;
 }
@@ -2447,6 +2455,10 @@ clamp image
     margin:10px;
 }
 
+clamp button image {
+    color: inherit;
+}
+
 deck
 {
     color: inherit;
@@ -2580,4 +2592,18 @@ mathconverter {
     border: none;
     color: inherit;
     background: none;
+}
+
+/* https://developer.gnome.org/gtkmm/stable/classGtk_1_1WindowHandle.html */
+/* For gnome-sound-recorder */
+windowhandle {
+    border: none;
+    background-color: inherit;
+    color: inherit;
+}
+
+squeezer {
+    border: none;
+    background-color: inherit;
+    color: inherit;
 }
