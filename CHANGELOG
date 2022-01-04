@@ -60,3 +60,7 @@ Version 1.0.12, 04/01/2021
 Version 1.0.13, 04/19/2021
 
   • Update for gnome-sound-recorder, tested with GTK+ 3.24.28
+
+Version 1.0.14, 01/04/2022
+
+  • Update for gnome-calculator, tested with gnome-calculator 41.0

@@ -1295,14 +1295,20 @@ scrolledwindow
     background: none;
 }
 
-scrolledwindow.frame
+scrolledwindow.frame /* E.g. Settings → Appearance */
 {
     border: 1px solid @border_color;
 }
 
-scrolledwindow.frame > viewport.frame /* No double borders, eg. Gnome calculator */
+scrolledwindow.history-view /* E.g. Gnome calculator */
+{
+    border-bottom: 1px solid @fg_color;
+}
+
+scrolledwindow.frame > viewport.frame /* No double borders, e.g. Gnome calculator */
 {
     border: none;
+    background-color: @disabled_base_color;
 }
 
 scrolledwindow > overshoot
@@ -1761,7 +1767,6 @@ row:selected:hover
     background-color: @hover_color;
 }
 
-
 row.activatable
 {
 
@@ -1859,7 +1864,7 @@ decoration:backdrop
      0px 0px 0px 2px @bg_color;
 }
 
-window.popup > decoration /* Eg. menus */
+window.popup > decoration /* E.g. menus */
 {
     border-radius: 0;
     box-shadow: 8px 8px 4px 0px alpha(black, .5);
@@ -2037,7 +2042,7 @@ iconview.view > iconview.view:selected
 
 /* Widget: https://developer.gnome.org/gtk3/stable/GtkWidget.html
 
-Eg. Evince document background */
+E.g. Evince document background */
 
 widget
 {
@@ -2366,7 +2371,7 @@ toolitem
     background: none;
 }
 
-/* ActionBar Eg. Firefox: file save dialog */
+/* ActionBar, e.g. Firefox: file save dialog */
 
 actionbar
 {
@@ -2592,6 +2597,12 @@ mathconverter {
     border: none;
     color: inherit;
     background: none;
+}
+
+/* For gnome-calculator 41.0 */
+mathdisplay {
+    color: transparent;
+    background-color: inherit;
 }
 
 /* https://developer.gnome.org/gtkmm/stable/classGtk_1_1WindowHandle.html */
