@@ -1665,6 +1665,7 @@ headerbar, box.titlebar
     margin-top: -3px;
     padding-top: 3px;
     padding-bottom: 2px;
+    min-height: 38px;
 }
 
 headerbar:backdrop, box.titlebar:backdrop
@@ -2618,3 +2619,21 @@ squeezer {
     background-color: inherit;
     color: inherit;
 }
+
+/* For seahorse 41.0 */
+/* "Preferences" window */
+
+preferencesgroup {
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background: @bg_color;
+    padding:6px;
+    margin:6px;
+}
+
+viewswitchertitle {
+    border: none;
+    background-color: inherit;
+    color: inherit;
+}
+
