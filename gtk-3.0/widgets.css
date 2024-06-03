@@ -2648,3 +2648,29 @@ meld-file-diff {
     color: inherit;
 }
 
+/* For xfdesktop icons */
+
+/* Icons */
+XfdesktopIconView.view:active {
+  color: @focus_color_lighter;
+}
+
+/* Labels */
+XfdesktopIconView.label {
+  color: white;
+  background-color: transparent;
+  text-shadow: 1px 1px 2px black;
+
+  -XfdesktopIconView-ellipsize-icon-labels: 1;
+}
+
+XfdesktopIconView.label:active {
+    background-color: @selected_bg_color;
+  color: @selected_fg_color;
+  border-radius: 3px;
+}
+
+XfdesktopIconView.rubberband {
+  background-color: alpha(@theme_color, .3);
+  border: 1px solid @selected_border_color;
+}
