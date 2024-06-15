@@ -2650,6 +2650,10 @@ meld-file-diff {
 
 /* For xfdesktop icons */
 
+XfdesktopIconView {
+  -XfdesktopIconView-ellipsize-icon-labels: 0;
+}
+
 /* Icons */
 XfdesktopIconView.view:active {
   color: @focus_color_lighter;
@@ -2660,8 +2664,6 @@ XfdesktopIconView.label {
   color: white;
   background-color: transparent;
   text-shadow: 1px 1px 2px black;
-
-  -XfdesktopIconView-ellipsize-icon-labels: 1;
 }
 
 XfdesktopIconView.label:active {
