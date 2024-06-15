@@ -1506,6 +1506,13 @@ treeview > treeview:selected:hover
     background-color: @hover_color;
 }
 
+treeview > rubberband
+{
+    background-color: alpha(@theme_color, .3);
+    border: 1px solid @selected_border_color;
+}
+
+
 /* Spinner: https://developer.gnome.org/gtk3/stable/GtkSpinner.html
 
 GtkSpinner has a single CSS node with the name spinner.
@@ -2675,4 +2682,19 @@ XfdesktopIconView.label:active {
 XfdesktopIconView.rubberband {
   background-color: alpha(@theme_color, .3);
   border: 1px solid @selected_border_color;
+}
+
+/* Thunar */
+
+.thunar .view,
+.thunar .shortcuts-pane .view
+{
+    color: @fg_color;
+    background-color: @base_color;
+}
+.thunar .view:selected,
+.thunar .shortcuts-pane .view:selected
+{
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
 }
