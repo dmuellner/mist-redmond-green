@@ -2651,7 +2651,8 @@ notebook.meld-notebook > stack {
     background-color: @bg_color;
 }
 
-meld-file-diff {
+meld-file-diff,
+meld-folder-diff {
     border: none;
     background-color: inherit;
     color: inherit;
