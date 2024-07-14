@@ -1743,6 +1743,8 @@ row
     color: @fg_color;
     background: none;
     padding: 3px;
+    margin-top: -1px;
+    margin-bottom: -1px;
 }
 
 row:nth-child(even)
