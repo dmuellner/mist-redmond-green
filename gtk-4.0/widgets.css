@@ -669,11 +669,6 @@ listview > row:first-child
     border: none;
 }
 
-listview > row:only-child
-{
-    background: none;
-}
-
 /* ListBox https://docs.gtk.org/gtk4/class.ListBox.html
 
 list[.separators][.rich-list][.navigation-sidebar][.boxed-list]
@@ -2352,29 +2347,25 @@ dropdown > button > box > stack > row:nth-child(2)
     background: inherit;
 }
 
-row:hover,
-listview > row:only-child:hover
+row:hover
 {
     color: @selected_fg_color;
     background-color: @hover_bg_color;
 }
 
-row:active:hover,
-listview > row:only-child:active:hover
+row:active:hover
 {
     color: @selected_fg_color;
     background-color: @active_hover_bg_color;
 }
 
-row:selected,
-listview > row:only-child:selected
+row:selected
 {
     color: @selected_fg_color;
     background-color: @selected_bg_color;
 }
 
-row:selected:hover,
-listview > row:only-child:hover
+row:selected:hover
 {
     color: @selected_fg_color;
     background-color: @hover_color;
@@ -2385,8 +2376,7 @@ row.activatable
 
 }
 
-row:focus,
-listview > row:only-child:focus
+row:focus
 {
     outline: @focus_color solid 1px;
     outline-offset: -4px;
