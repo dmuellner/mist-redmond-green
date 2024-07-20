@@ -1,0 +1,3172 @@
+* {
+    all: unset;
+
+    padding: 0px;
+    border: 1px solid red;
+    color: blue;
+    background-color: orange;
+}
+
+/* Pseudo-classes */
+
+:link
+{
+    color: @link_color;
+    text-decoration-line: underline;
+}
+
+:visited
+{
+    color: @visited_color;
+    text-decoration-line: underline;
+}
+
+/*  Window https://docs.gtk.org/gtk4/class.Window.html
+
+CSS nodes
+
+window.background [.csd / .solid-csd / .ssd] [.maximized / .fullscreen / .tiled]
+├── <child>
+╰── <titlebar child>.titlebar [.default-decoration]
+
+GtkWindow has a main CSS node with name window and style class .background.
+
+Style classes that are typically used with the main CSS node are .csd (when client-side decorations are in use), .solid-csd (for client-side decorations without invisible borders), .ssd (used by mutter when rendering server-side decorations). GtkWindow also represents window states with the following style classes on the main node: .maximized, .fullscreen, .tiled (when supported, also .tiled-top, .tiled-left, .tiled-right, .tiled-bottom).
+
+GtkWindow subclasses often add their own discriminating style classes, such as .dialog, .popup or .tooltip.
+
+Generally, some CSS properties don’t make sense on the toplevel window node, such as margins or padding. When client-side decorations without invisible borders are in use (i.e. the .solid-csd style class is added to the main window node), the CSS border of the toplevel window is used for resize drags. In the .csd case, the shadow area outside of the window can be used to resize it.
+
+GtkWindow adds the .titlebar and .default-decoration style classes to the widget that is added as a titlebar child.
+*/
+
+window
+{
+    border: none;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+
+window.csd,
+window.solid-csd
+{
+    box-shadow: 0px 0px 8px 6px alpha(black, 0.5),
+                0px 0px 0px 3px @focus_color_darker,
+                0px 0px 0px 2px @focus_color_lighter,
+                0px 0px 0px 1px @focus_color_darker;
+    /* Rounded corners don't work well. */
+    /*
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding-top: 8x;
+   */
+}
+
+window.csd:backdrop,
+window.solid-csd:backdrop
+{
+    box-shadow: 0px 0px 8px 6px alpha(black, 0.5),
+                0px 0px 0px 3px @backdrop_border_color,
+                0px 0px 0px 2px @bg_color;
+}
+
+window .titlebar
+{
+    border: none;
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+    /*
+    box-shadow: inset 0 1px @focus_color_highlight;
+    */
+    background-image: linear-gradient(
+        to bottom,
+        mix(@selected_bg_color, #aeaeae, .4) 0%,
+        mix(@selected_bg_color, #050505, .15) 15%,
+        mix(@selected_bg_color, #d7d7d7, .11) 100%);
+}
+
+window .titlebar:backdrop
+{
+    color: @disabled_fg_color;
+    /*
+    box-shadow: inset 0 1px mix(#dbdbdb, white, .2);
+    */
+    background-image: linear-gradient(
+        to bottom,
+        mix(@bg_color_insensitive, #414141, .25) 0%,
+        mix(@bg_color_insensitive, #262626, .15) 15%,
+        mix(@bg_color_insensitive, #e5e5e5, .1) 100%);
+}
+
+windowhandle
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+windowhandle button
+{
+    padding: 0px;
+}
+
+/* HeaderBar https://docs.gtk.org/gtk4/class.HeaderBar.html
+
+headerbar
+╰── windowhandle
+    ╰── box
+        ├── box.start
+        │   ├── windowcontrols.start
+        │   ╰── [other children]
+        ├── [Title Widget]
+        ╰── box.end
+            ├── [other children]
+            ╰── windowcontrols.end
+
+A GtkHeaderBar‘s CSS node is called headerbar. It contains a windowhandle subnode, which contains a box subnode, which contains two box subnodes at the start and end of the header bar, as well as a center node that represents the title.
+
+Each of the boxes contains a windowcontrols subnode, see GtkWindowControls for details, as well as other children.
+*/
+
+headerbar
+{
+    border: none;
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+    /*
+    box-shadow: inset 0 1px @focus_color_highlight;
+    */
+    background-image: linear-gradient(
+        to bottom,
+        mix(@selected_bg_color, #aeaeae, .4) 0%,
+        mix(@selected_bg_color, #050505, .15) 15%,
+        mix(@selected_bg_color, #d7d7d7, .11) 100%);
+}
+
+headerbar:backdrop
+{
+    color: @disabled_fg_color;
+    /*
+    box-shadow: inset 0 1px mix(#dbdbdb, white, .2);
+    */
+    background-image: linear-gradient(
+        to bottom,
+        mix(@bg_color_insensitive, #414141, .25) 0%,
+        mix(@bg_color_insensitive, #262626, .15) 15%,
+        mix(@bg_color_insensitive, #e5e5e5, .1) 100%);
+}
+
+/* Box https://docs.gtk.org/gtk4/class.Box.html
+
+GtkBox uses a single CSS node with name box.
+*/
+
+box
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+box.card {
+    border: 1px solid @border_color;
+    background-color: @disabled_base_color;
+}
+
+/* Paned https://docs.gtk.org/gtk4/class.Paned.html
+
+paned
+├── <child>
+├── separator[.wide]
+╰── <child>
+
+GtkPaned has a main CSS node with name paned, and a subnode for the separator with name separator. The subnode gets a .wide style class when the paned is supposed to be wide.
+
+In horizontal orientation, the nodes are arranged based on the text direction, so in left-to-right mode, :first-child will select the leftmost child, while it will select the rightmost child in RTL layouts.
+*/
+
+paned
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+paned > separator
+{
+    min-width: 3px;
+    min-height: 3px;
+}
+
+paned > separator:hover
+{
+    background-color: @hover_color;
+    box-shadow:  0px 0px 0px 1px @hover_color;
+}
+
+/* Separator https://docs.gtk.org/gtk4/class.Separator.html
+
+GtkSeparator has a single CSS node with name separator. The node gets one of the .horizontal or .vertical style classes.
+*/
+
+separator
+{
+    border: none;
+    color: @border_color;
+    background-color: @border_color;
+}
+
+separator.horizontal
+{
+    min-height: 1px;
+    margin: 4px 0px;
+}
+
+separator.vertical
+{
+    min-width: 1px;
+    margin: 0px 4px;
+}
+
+/* Frame https://docs.gtk.org/gtk4/class.Frame.html
+
+frame
+├── <label widget>
+╰── <child>
+
+GtkFrame has a main CSS node with name “frame”, which is used to draw the visible border. You can set the appearance of the border using CSS properties like “border-style” on this node.
+*/
+
+frame
+{
+    border: none;
+    color: inherit;
+    background: none;
+    padding: 3px;
+}
+
+frame.border-inset
+{
+    border: 1px inset @border_color;
+}
+
+frame.border-outset
+{
+    border: 1px outset @border_color;
+}
+
+frame.border-groove
+{
+    border: 2px groove @border_color;
+}
+
+frame.border-ridge
+{
+    border: 2px ridge @border_color;
+}
+
+/* AspectFrame https://docs.gtk.org/gtk4/class.AspectFrame.html
+
+GtkAspectFrame uses a CSS node with name aspectframe.
+*/
+
+aspectframe
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Label https://docs.gtk.org/gtk4/class.Label.html
+
+label
+├── [selection]
+├── [link]
+┊
+╰── [link]
+
+GtkLabel has a single CSS node with the name label. A wide variety of style classes may be applied to labels, such as .title, .subtitle, .dim-label, etc. In the GtkShortcutsWindow, labels are used with the .keycap style class.
+
+If the label has a selection, it gets a subnode with name selection.
+
+If the label has links, there is one subnode per link. These subnodes carry the link or visited state depending on whether they have been visited. In this case, label node also gets a .link style class.
+*/
+
+label
+{
+    border: none;
+    color: inherit;
+    background: none;
+    padding: 0px 3px;
+}
+
+label:focus {
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+label > link {
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+:link > label,
+:visited > label
+{
+    text-decoration-line: underline;
+}
+
+label.large-title
+{
+    font-size: 200%;
+    font-weight: bold;
+}
+
+label.title-1
+{
+    font-size: 170%;
+    font-weight: bold;
+}
+
+label.title-2
+{
+    font-size: 150%;
+    font-weight: bold;
+}
+
+label.title-3
+{
+    font-size: 133%;
+    font-weight: bold;
+}
+
+label.title-4
+{
+    font-size: 120%;
+    font-weight: bold;
+}
+
+label.heading
+{
+    font-size: 110%;
+    font-weight: bold;
+}
+
+label.body
+{
+}
+
+label.caption-heading
+{
+    font-weight: bold;
+}
+
+label.caption
+{
+    font-size: 90%;
+}
+
+label.keycap
+{
+    border: 1px solid @border_color;
+    background-color: @bg_color_lighter;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+/* Entry https://docs.gtk.org/gtk4/class.Entry.html
+
+CSS nodes
+
+entry[.flat][.warning][.error]
+├── text[.readonly]
+├── image.left
+├── image.right
+╰── [progress[.pulse]]
+
+GtkEntry has a main node with the name entry. Depending on the properties of the entry, the style classes .read-only and .flat may appear. The style classes .warning and .error may also be used with entries.
+
+When the entry shows icons, it adds subnodes with the name image and the style class .left or .right, depending on where the icon appears.
+
+When the entry shows progress, it adds a subnode with the name progress. The node has the style class .pulse when the shown progress is pulsing.
+
+For all the subnodes added to the text node in various situations, see GtkText.
+*/
+
+entry
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+    padding: 2px;
+}
+
+entry:disabled
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_base_color;
+}
+
+entry.read-only,
+entry.flat,
+entry.warning,
+entry.error,
+entry > progress.pulse
+{
+    color: blue;
+    background-color: orange;
+}
+
+entry.error {
+    background-color: @error_bg_color;
+}
+
+
+entry > text
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* entry > progress: See ProgessBar */
+
+
+/* Text https://docs.gtk.org/gtk4/class.Text.html
+
+text[.read-only]
+├── placeholder
+├── undershoot.left
+├── undershoot.right
+├── [selection]
+├── [block-cursor]
+╰── [window.popup]
+
+GtkText has a main node with the name text. Depending on the properties of the widget, the .read-only style class may appear.
+
+When the entry has a selection, it adds a subnode with the name selection.
+
+When the entry is in overwrite mode, it adds a subnode with the name block-cursor that determines how the block cursor is drawn.
+
+The CSS node for a context menu is added as a subnode with the name popup.
+
+The undershoot nodes are used to draw the underflow indication when content is scrolled out of view. These nodes get the .left or .right style class added depending on where the indication is drawn.
+
+When touch is used and touch selection handles are shown, they are using CSS nodes with name cursor-handle. They get the .top or .bottom style class depending on where they are shown in relation to the selection. If there is just a single handle for the text cursor, it gets the style class .insertion-cursor.
+*/
+
+text
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+text > selection
+{
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+text > placeholder
+{
+    border: none;
+    color: @disabled_fg_color;
+    background: none;
+}
+
+text > block-cursor
+{
+    color: @select_fg_color;
+    background-color: @focus_color_darker;
+}
+
+text > undershoot
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+text > undershoot.left
+{
+    background-image: linear-gradient(to left, transparent 50%, alpha(@theme_color,.5) 100%);
+}
+
+text > undershoot.right
+{
+    background-image: linear-gradient(to right, transparent 50%, alpha(@theme_color,.5) 100%);
+}
+
+
+text.read-only,
+text > window
+{
+    color: blue;
+    background-color: orange;
+}
+
+/* Image https://docs.gtk.org/gtk4/class.Image.html
+
+GtkImage has a single CSS node with the name image. The style classes .normal-icons or .large-icons may appear, depending on the GtkImage:icon-size property.
+*/
+
+image
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-size: 24px;
+}
+
+image.normal-icons
+{
+    -gtk-icon-size: 24px;
+}
+
+image.large-icons
+{
+    -gtk-icon-size: 32px;
+}
+
+image:disabled
+{
+    -gtk-icon-shadow: 1px 1px 0px white;
+    -gtk-icon-filter: contrast(60%);
+}
+
+windowcontrols > button > image
+{
+    -gtk-icon-size: 16px;
+    padding: 4px;
+}
+
+arrow
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+arrow > image
+{
+    -gtk-icon-size: 16px;
+}
+
+arrow.down
+{
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+arrow.up
+{
+    -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+}
+
+arrow.left
+{
+    -gtk-icon-source: -gtk-icontheme('pan-left-symbolic');
+}
+
+arrow.right
+{
+    -gtk-icon-source: -gtk-icontheme('pan-right-symbolic');
+}
+
+/* Stack https://docs.gtk.org/gtk4/class.Stack.html
+
+GtkStack has a single CSS node named stack.
+*/
+
+stack
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* StackSidebar https://docs.gtk.org/gtk4/class.StackSidebar.html
+
+GtkStackSidebar has a single CSS node with name stacksidebar and style class .sidebar.
+
+When circumstances require it, GtkStackSidebar adds the .needs-attention style class to the widgets representing the stack pages.
+*/
+
+stacksidebar
+{
+    border: none;
+    border-right: 1px solid @border_color;
+    color: @fg_color;
+    background: @base_color;
+}
+
+/* Columnview https://docs.gtk.org/gtk4/class.ColumnView.html
+
+columnview[.column-separators][.rich-list][.navigation-sidebar][.data-table]
+├── header
+│   ├── <column header>
+┊   ┊
+│   ╰── <column header>
+│
+├── listview
+│
+┊
+╰── [rubberband]
+
+GtkColumnView uses a single CSS node named columnview. It may carry the .column-separators style class, when GtkColumnView:show-column-separators property is set. Header widgets appear below a node with name header. The rows are contained in a GtkListView widget, so there is a listview node with the same structure as for a standalone GtkListView widget. If GtkColumnView:show-row-separators is set, it will be passed on to the list view, causing its CSS node to carry the .separators style class. For rubberband selection, a node with name rubberband is used.
+
+The main columnview node may also carry style classes to select the style of list presentation: .rich-list, .navigation-sidebar or .data-table.
+*/
+
+columnview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+columnview > header
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Listview https://docs.gtk.org/gtk4/class.ListView.html
+
+listview[.separators][.rich-list][.navigation-sidebar][.data-table]
+├── row[.activatable]
+│
+├── row[.activatable]
+│
+┊
+╰── [rubberband]
+
+GtkListView uses a single CSS node named listview. It may carry the .separators style class, when GtkListView:show-separators property is set. Each child widget uses a single CSS node named row. If the GtkListItem:activatable property is set, the corresponding row will have the .activatable style class. For rubberband selection, a node with name rubberband is used.
+
+The main listview node may also carry style classes to select the style of list presentation: .rich-list, .navigation-sidebar or .data-table.
+*/
+
+listview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+listview > row
+{
+    border: none;
+    border-top: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+listview > row:first-child
+{
+    border: none;
+}
+
+listview > row:only-child
+{
+    background: none;
+}
+
+/* ListBox https://docs.gtk.org/gtk4/class.ListBox.html
+
+list[.separators][.rich-list][.navigation-sidebar][.boxed-list]
+╰── row[.activatable]
+
+GtkListBox uses a single CSS node named list. It may carry the .separators style class, when the GtkListBox:show-separators property is set. Each GtkListBoxRow uses a single CSS node named row. The row nodes get the .activatable style class added when appropriate.
+
+It may also carry the .boxed-list style class. In this case, the list will be automatically surrounded by a frame and have separators.
+
+The main list node may also carry style classes to select the style of list presentation: .rich-list, .navigation-sidebar or .data-table.
+*/
+
+list
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* ScrolledWindow https://docs.gtk.org/gtk4/class.ScrolledWindow.html
+
+GtkScrolledWindow has a main CSS node with name scrolledwindow. It gets a .frame style class added when GtkScrolledWindow:has-frame is TRUE.
+
+It uses subnodes with names overshoot and undershoot to draw the overflow and underflow indications. These nodes get the .left, .right, .top or .bottom style class added depending on where the indication is drawn.
+
+GtkScrolledWindow also sets the positional style classes (.left, .right, .top, .bottom) and style classes related to overlay scrolling (.overlay-indicator, .dragging, .hovering) on its scrollbars.
+
+If both scrollbars are visible, the area where they meet is drawn with a subnode named junction.
+*/
+
+scrolledwindow
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scrolledwindow.frame
+{
+    border: 1px solid @border_color;
+}
+
+scrolledwindow > undershoot
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scrolledwindow > undershoot.top
+{
+    background-image: linear-gradient(to top, transparent 50%, alpha(@theme_color,.5) 100%);
+}
+
+scrolledwindow > undershoot.bottom
+{
+    background-image: linear-gradient(to bottom, transparent 50%, alpha(@theme_color,.5) 100%);
+}
+
+scrolledwindow > undershoot.left
+{
+    background-image: linear-gradient(to left, transparent 50%, alpha(@theme_color,.5) 100%);
+}
+
+scrolledwindow > undershoot.right
+{
+    background-image: linear-gradient(to right, transparent 50%, alpha(@theme_color,.5) 100%);
+}
+
+
+scrolledwindow > overshoot
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-size: 100% 30%;
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+scrolledwindow > overshoot.top
+{
+    background-image: linear-gradient(to top, alpha(@theme_color,0) 0%, alpha(@theme_color,1) 100%);
+    background-position: center top;
+}
+
+scrolledwindow > overshoot.bottom {
+    background-image: linear-gradient(to bottom, alpha(@theme_color,0) 0%, alpha(@theme_color,1) 100%);
+    background-position: center bottom;
+}
+
+scrolledwindow > junction
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-color: @trough_bg_color;
+}
+
+
+/* CellView https://docs.gtk.org/gtk4/class.CellView.html
+
+GtkCellView has a single CSS node with name cellview.
+*/
+cellview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Expander https://docs.gtk.org/gtk4/class.Expander.html
+
+expander-widget
+╰── box
+    ├── title
+    │   ├── expander
+    │   ╰── <label widget>
+    ╰── <child>
+
+GtkExpander has a main node expander-widget, and subnode box containing the title and child widget. The box subnode title contains node expander, i.e. the expand/collapse arrow; then the label widget if any. The arrow of an expander that is showing its child gets the :checked pseudoclass set on it.
+*/
+
+expander-widget
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background: @bg_color_lighter;
+}
+
+expander-widget > box
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+
+expander-widget > box > title
+{
+    border: none;
+    color: inherit;
+    background-color: @fg_color_lighter;
+    box-shadow: 0px 1px @border_color;
+    padding: 3px;
+}
+
+expander-widget > box > title > expander {
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme('pan-right-symbolic');
+}
+
+expander-widget > box > title > expander:checked {
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+expander-widget:focus
+{
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+/* TextView https://docs.gtk.org/gtk4/class.TextView.html
+
+textview.view
+├── border.top
+├── border.left
+├── text
+│   ╰── [selection]
+├── border.right
+├── border.bottom
+╰── [window.popup]
+
+GtkTextView has a main css node with name textview and style class .view, and subnodes for each of the border windows, and the main text area, with names border and text, respectively. The border nodes each get one of the style classes .left, .right, .top or .bottom.
+
+A node representing the selection will appear below the text node.
+
+If a context menu is opened, the window node will appear as a subnode of the main node.
+*/
+textview
+{
+    border: none;
+    color: inherit;
+    background-color: @base_color;
+    padding: 3px;
+}
+
+/* IconView https://docs.gtk.org/gtk4/class.IconView.html
+
+iconview.view
+╰── [rubberband]
+
+GtkIconView has a single CSS node with name iconview and style class .view. For rubberband selection, a subnode with name rubberband is used.
+*/
+
+iconview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+iconview:focus
+{
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+iconview > :focus
+{
+    outline: none;
+}
+
+iconview > :selected {
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+iconview > :hover {
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+iconview > :selected:hover {
+    color: @selected_fg_color;
+    background-color: @selected_hover_color;
+}
+
+/* Button https://docs.gtk.org/gtk4/class.Button.html
+
+GtkButton has a single CSS node with name button. The node will get the style classes .image-button or .text-button, if the content is just an image or label, respectively. It may also receive the .flat style class. When activating a button via the keyboard, the button will temporarily gain the .keyboard-activating style class.
+
+Other style classes that are commonly used with GtkButton include .suggested-action and .destructive-action. In special cases, buttons can be made round by adding the .circular style class.
+
+Button-like widgets like GtkToggleButton, GtkMenuButton, GtkVolumeButton, GtkLockButton, GtkColorButton or GtkFontButton use style classes such as .toggle, .popup, .scale, .lock, .color on the button node to differentiate themselves from a plain GtkButton.
+*/
+
+button
+{
+    border: 1px outset @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+    padding: 3px;
+}
+
+button.rounded-button {
+    border-radius: 10px;
+}
+
+button.image-button
+{
+    padding: 0px;
+}
+
+button.text-button
+{
+    padding: 3px;
+}
+
+button.flat
+{
+    background: none;
+    border-style: solid;
+}
+
+button.flat:hover
+{
+    border-style: outset;
+}
+
+button:active,
+button:checked,
+button.flat:active,
+button.flat:checked
+{
+    border-style: inset;
+}
+
+button.image-button.flat
+{
+    border-color: transparent;
+}
+
+button.image-button.flat:checked,
+button.image-button.flat:active,
+button.image-button.flat:hover
+{
+    border-color: @border_color;
+}
+
+button.circular-button, button.circular
+{
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 50%;
+}
+
+button.destructive-action
+{
+    background-color: @button_bg_destructive;
+}
+
+button.suggested-action
+{
+    background-color: @button_bg_suggested;
+}
+
+button:checked
+{
+    background-color: @checked_bg_color;
+}
+
+button:active
+{
+    background-color: @active_bg_color;
+}
+
+button:hover
+{
+    background-color: @hover_bg_color;
+}
+
+button:hover:active
+{
+    background-color: @active_hover_bg_color;
+}
+
+button.destructive-action:checked
+{
+    background-color: mix(@checked_bg_color, @button_bg_destructive, .5);
+}
+
+button.destructive-action:active
+{
+    background-color: mix(@active_bg_color, @button_bg_destructive, .5);
+}
+
+button.destructive-action:hover
+{
+    background-color: mix(@hover_bg_color, @button_bg_destructive, .5);
+}
+
+button.destructive-action:hover:active
+{
+    background-color: mix(@active_hover_bg_color, @button_bg_destructive, .5);
+}
+
+button.suggested-action:checked
+{
+    background-color: mix(@checked_bg_color, @button_bg_suggested, .5);
+}
+
+button.suggested-action:active
+{
+    background-color: mix(@active_bg_color, @button_bg_suggested, .5);
+}
+
+button.suggested-action:hover
+{
+    background-color: mix(@hover_bg_color, @button_bg_suggested, .5);
+}
+
+button.suggested-action:hover:active
+{
+    background-color: mix(@active_hover_bg_color, @button_bg_suggested, .5);
+}
+
+button:disabled
+{
+    -gtk-icon-shadow: 1px 1px 0px white;
+    color: @disabled_fg_color;
+    background-color: @disabled_bg_color;
+}
+
+button.image-button:disabled
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_bg_color;
+}
+
+button:selected
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+button:indeterminate
+{
+    color: blue;
+    background-color: orange;
+}
+
+button:focus
+{
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+button.arrow-button > box > arrow,
+button.combo > box > arrow
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+/* ScaleButton https://docs.gtk.org/gtk4/class.ScaleButton.html
+
+scalebutton.scale
+╰── button.toggle
+    ╰── <icon>
+
+GtkScaleButton has a single CSS node with name scalebutton and .scale style class, and contains a button node with a .toggle style class.
+*/
+
+scalebutton
+{
+    border: 1px outset @border_color;
+    color: inherit;
+    background: none;
+}
+
+scalebutton:active,
+scalebutton:checked
+{
+    border-style: inset;
+}
+
+/* ComboBox https://docs.gtk.org/gtk4/class.ComboBox.html
+
+combobox
+├── box.linked
+│   ╰── button.combo
+│       ╰── box
+│           ├── cellview
+│           ╰── arrow
+╰── window.popup
+
+A normal combobox contains a box with the .linked class, a button with the .combo class and inside those buttons, there are a cellview and an arrow.
+
+combobox
+├── box.linked
+│   ├── entry.combo
+│   ╰── button.combo
+│       ╰── box
+│           ╰── arrow
+╰── window.popup
+
+A GtkComboBox with an entry has a single CSS node with name combobox. It contains a box with the .linked class. That box contains an entry and a button, both with the .combo class added. The button also contains another node with name arrow.
+*/
+
+combobox
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+combobox > window.popup
+{
+    color: blue;
+    background-color: orange;
+}
+
+/* FlowBox https://docs.gtk.org/gtk4/class.FlowBox.html
+
+flowbox
+├── flowboxchild
+│   ╰── <child>
+├── flowboxchild
+│   ╰── <child>
+┊
+╰── [rubberband]
+
+GtkFlowBox uses a single CSS node with name flowbox. GtkFlowBoxChild uses a single CSS node with name flowboxchild. For rubberband selection, a subnode with name rubberband is used.
+*/
+
+flowbox
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+flowboxchild
+{
+    border: none;
+    color: @fg_color;
+    background: @bg_color;
+}
+
+/* EmojiChooser https://docs.gtk.org/gtk4/class.EmojiChooser.html
+
+popover
+├── box.emoji-searchbar
+│   ╰── entry.search
+╰── box.emoji-toolbar
+    ├── button.image-button.emoji-section
+    ├── ...
+    ╰── button.image-button.emoji-section
+
+Every GtkEmojiChooser consists of a main node called popover. The contents of the popover are largely implementation defined and supposed to inherit general styles. The top searchbar used to search emoji and gets the .emoji-searchbar style class itself. The bottom toolbar used to switch between different emoji categories consists of buttons with the .emoji-section style class and gets the .emoji-toolbar style class itself.
+*/
+
+emoji
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Popover https://docs.gtk.org/gtk4/class.Popover.html
+
+popover.background[.menu]
+├── arrow
+╰── contents
+    ╰── <child>
+
+GtkPopover has a main node with name popover, an arrow with name arrow, and another node for the content named contents. The popover node always gets the .background style class. It also gets the .menu style class if the popover is menu-like, e.g. is a GtkPopoverMenu.
+
+Particular uses of GtkPopover, such as touch selection popups or magnifiers in GtkEntry or GtkTextView get style classes like .touch-selection or .magnifier to differentiate from plain popovers.
+
+When styling a popover directly, the popover node should usually not have any background. The visible part of the popover can have a shadow. To specify it in CSS, set the box-shadow of the contents node.
+
+Note that, in order to accomplish appropriate arrow visuals, GtkPopover uses custom drawing for the arrow node. This makes it possible for the arrow to change its shape dynamically, but it also limits the possibilities of styling it using CSS. In particular, the arrow gets drawn over the content node’s border and shadow, so they look like one shape, which means that the border width of the content node and the arrow node should be the same. The arrow also does not support any border shape other than solid, no border-radius, only one border width (border-bottom-width is used) and no box-shadow.
+*/
+
+popover
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+popover > arrow
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+popover > contents
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+popover > contents > scrolledwindow > viewport
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+popover > contents > scrolledwindow > viewport > stack
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+popover > contents > scrolledwindow > viewport > stack > box
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+popover > contents > scrolledwindow > viewport > stack > box modelbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+    padding: 3px;
+}
+
+popover > contents > scrolledwindow > viewport > stack > box modelbutton > .right
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+popover > contents > scrolledwindow > viewport > stack > box modelbutton:selected
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+popover > contents > scrolledwindow > viewport > stack > box modelbutton:disabled
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_base_color;
+}
+
+menubar > item > popover > contents > scrolledwindow > viewport > stack > box modelbutton.flat > .right
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme('pan-right-symbolic');
+
+}
+
+menubar > item > popover > contents > scrolledwindow > viewport > stack > box modelbutton.flat > .left
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme('pan-left-symbolic');
+
+}
+
+/* PopoverMenuBar https://docs.gtk.org/gtk4/class.PopoverMenuBar.html
+
+menubar
+├── item[.active]
+┊   ╰── popover
+╰── item
+    ╰── popover
+
+GtkPopoverMenuBar has a single CSS node with name menubar, below which each item has its CSS node, and below that the corresponding popover.
+
+The item whose popover is currently open gets the .active style class.
+*/
+
+menubar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+menubar > item
+{
+    border: none;
+    color: inherit;
+    background: none;
+    padding: 2px 6px;
+}
+
+menubar > item:hover
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+accelerator
+{
+    border: none;
+    color: @disabled_fg_color;
+    background: none;
+    margin-left: 6px;
+}
+
+
+/* CheckButton https://docs.gtk.org/gtk4/class.CheckButton.html
+
+checkbutton[.text-button]
+├── check
+╰── [label]
+
+A GtkCheckButton has a main node with name checkbutton. If the GtkCheckButton:label or GtkCheckButton:child properties are set, it contains a child widget. The indicator node is named check when no group is set, and radio if the checkbutton is grouped together with other checkbuttons.
+*/
+
+checkbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+check,
+radio
+{
+    border: 1px solid @border_color;
+    color: @selected_bg_color;
+    background-color: @base_color;
+    margin: 3px;
+}
+
+radio
+{
+    border-radius: 50%;
+}
+
+check:checked
+{
+    -gtk-icon-source: -gtk-icontheme('object-select-symbolic');
+}
+
+check:indeterminate
+{
+    -gtk-icon-source: -gtk-icontheme('list-remove-symbolic');
+}
+
+radio:checked
+{
+    -gtk-icon-source: -gtk-icontheme('media-record-symbolic');
+}
+
+radio:indeterminate
+{
+    -gtk-icon-source: -gtk-icontheme('list-remove-symbolic');
+}
+
+radio:disabled,
+check:disabled,
+radio:disabled:hover,
+check:disabled:hover,
+radio:disabled:focus,
+check:disabled:focus
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_base_color;
+}
+
+radio:checked:hover,
+check:checked:hover,
+radio:focus,
+check:focus
+{
+    color: @selected_bg_color;
+    background-color: @base_color;
+}
+
+checkbutton > label
+{
+    border: 1px solid transparent;
+}
+checkbutton:focus > label
+{
+    border: 1px solid @focus_color;
+}
+
+checkbutton:disabled
+{
+    background: none;
+}
+
+checkbutton:hover
+{
+    background-color: @hover_bg_color;
+}
+
+check:hover,
+radio:hover,
+check:active:hover,
+radio:active:hover
+{
+    background-color: @base_color;
+}
+
+/* ColorButton https://docs.gtk.org/gtk4/class.ColorButton.html
+
+colorbutton
+╰── button.color
+    ╰── [content]
+
+GtkColorButton has a single CSS node with name colorbutton which contains a button node. To differentiate it from a plain GtkButton, it gets the .color style class.
+*/
+
+colorbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+colorbutton > button.color > colorswatch
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+}
+
+/* Overlay https://docs.gtk.org/gtk4/class.Overlay.html
+
+CSS nodes
+
+GtkOverlay has a single CSS node with the name “overlay”. Overlay children whose alignments cause them to be positioned at an edge get the style classes “.left”, “.right”, “.top”, and/or “.bottom” according to their position.
+*/
+
+overlay
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* FontButton https://docs.gtk.org/gtk4/class.FontButton.html
+
+fontbutton
+╰── button.font
+    ╰── [content]
+
+GtkFontButton has a single CSS node with name fontbutton which contains a button node with the .font style class.
+*/
+
+fontbutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Switch https://docs.gtk.org/gtk4/class.Switch.html
+
+switch
+├── image
+├── image
+╰── slider
+
+GtkSwitch has four css nodes, the main node with the name switch and subnodes for the slider and the on and off images. Neither of them is using any style classes.
+*/
+
+switch
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+}
+
+switch:checked
+{
+    background-color: @selected_bg_color;
+}
+
+switch:checked:disabled
+{
+    background-color: mix(@disabled_bg_color, @selected_bg_color, .5);
+}
+
+switch > slider
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @slider_bg_color;
+}
+
+switch:hover > slider
+{
+    background-color: @hover_bg_color;
+}
+
+switch:focus > slider
+{
+    border-color: @focus_color;
+}
+
+switch:disabled > slider
+{
+    background-color: @disabled_bg_color;
+}
+
+/* SpinButton https://docs.gtk.org/gtk4/class.SpinButton.html
+
+spinbutton.horizontal
+├── text
+│    ├── undershoot.left
+│    ╰── undershoot.right
+├── button.down
+╰── button.up
+
+spinbutton.vertical
+├── button.up
+├── text
+│    ├── undershoot.left
+│    ╰── undershoot.right
+╰── button.down
+
+GtkSpinButtons main CSS node has the name spinbutton. It creates subnodes for the entry and the two buttons, with these names. The button nodes have the style classes .up and .down. The GtkText subnodes (if present) are put below the text node. The orientation of the spin button is reflected in the .vertical or .horizontal style class on the main node.
+*/
+
+spinbutton
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @base_color;
+}
+
+spinbutton > text {
+    padding: 0px 3px;
+}
+
+spinbutton > text:focus {
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+/* Spinner https://docs.gtk.org/gtk4/class.Spinner.html
+
+GtkSpinner has a single CSS node with the name spinner. When the animation is active, the :checked pseudoclass is added to this node.
+*/
+
+@keyframes spinner {
+    to { -gtk-icon-transform: rotate(1turn); }
+}
+
+spinner
+{
+    border: none;
+    color: @fg_color;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+}
+
+spinner:checked
+{
+    animation: spinner 1s infinite steps(12);
+}
+
+spinner:disabled {
+    color: @disabled_fg_color;
+}
+
+/* Scrollbar https://docs.gtk.org/gtk4/class.Scrollbar.html
+
+scrollbar
+╰── range[.fine-tune]
+    ╰── trough
+        ╰── slider
+
+GtkScrollbar has a main CSS node with name scrollbar and a subnode for its contents. The main node gets the .horizontal or .vertical style classes applied, depending on the scrollbar’s orientation.
+
+The range node gets the style class .fine-tune added when the scrollbar is in ‘fine-tuning’ mode.
+
+Other style classes that may be added to scrollbars inside GtkScrolledWindow include the positional classes (.left, .right, .top, .bottom) and style classes related to overlay scrolling (.overlay-indicator, .dragging, .hovering).
+*/
+
+scrollbar
+{
+    border: none;
+    color: inherit;
+    background-color: inherit;
+}
+
+scrollbar.vertical {
+    border-left: 1px solid @border_color;
+}
+
+scrollbar.horizontal {
+    border-top: 1px solid @border_color;
+}
+
+scrollbar > range {
+    border: none;
+    color: blue;
+    background-color: orange;
+}
+
+scrollbar > range > trough {
+    border: none;
+    color: inherit;
+    background-color: @trough_bg_color;
+}
+
+scrollbar > range.fine-tune > trough
+{
+    color: blue;
+    background-color: orange;
+}
+
+scrollbar > range > trough > slider {
+    border: 1px solid @border_color;
+    min-width: 13px;
+    min-height: 13px;
+    color: blue;
+    background-color: @slider_bg_color;
+}
+
+scrollbar > range > trough > slider:active {
+    background-color: @active_bg_color;
+}
+
+scrollbar > range > trough > slider:hover {
+    background-color: @hover_bg_color;
+}
+
+scrollbar > range > trough > slider:active:hover {
+    background-color: @active_hover_bg_color;
+}
+
+/* ProgressBar https://docs.gtk.org/gtk4/class.ProgressBar.html
+
+progressbar[.osd]
+├── [text]
+╰── trough[.empty][.full]
+    ╰── progress[.pulse]
+
+GtkProgressBar has a main CSS node with name progressbar and subnodes with names text and trough, of which the latter has a subnode named progress. The text subnode is only present if text is shown. The progress subnode has the style class .pulse when in activity mode. It gets the style classes .left, .right, .top or .bottom added when the progress ‘touches’ the corresponding end of the GtkProgressBar. The .osd class on the progressbar node is for use in overlays like the one Epiphany has for page loading progress.
+*/
+
+progressbar,
+entry > progress
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+progressbar > trough,
+entry > progress > trough
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @trough_bg_color;
+}
+
+progressbar > trough > progress,
+entry > progress > trough > progress
+{
+    border: 1px solid @selected_border_color;
+    color: inherit;
+    background-color: @selected_bg_color;
+}
+
+progressbar > trough > progress.pulse,
+entry > progress > trough > progress.pulse
+{
+    background-color: @selected_bg_color;
+}
+
+progressbar.horizontal > trough,
+entry > progress.horizontal > trough
+{
+    min-height: 14px;
+}
+
+progressbar.horizontal > trough > progress,
+entry > progress.horizontal > trough > progress
+{
+    min-height: 12px;
+}
+
+progressbar.vertical > trough,
+entry > progress.vertical > trough
+{
+    min-width: 14px;
+}
+
+progressbar.vertical > trough > progress,
+entry > progress.vertical > trough > progress
+{
+    min-width: 12px;
+}
+
+progressbar > text,
+entry > progress > text
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Grid https://docs.gtk.org/gtk4/class.Grid.html
+
+GtkGrid uses a single CSS node with name grid.
+*/
+
+grid
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Viewport https://docs.gtk.org/gtk4/class.Viewport.html
+
+GtkViewport has a single CSS node with name viewport.
+*/
+
+viewport
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* LevelBar https://docs.gtk.org/gtk4/class.LevelBar.html
+
+levelbar[.discrete]
+╰── trough
+    ├── block.filled.level-name
+    ┊
+    ├── block.empty
+    ┊
+
+GtkLevelBar has a main CSS node with name levelbar and one of the style classes .discrete or .continuous and a subnode with name trough. Below the trough node are a number of nodes with name block and style class .filled or .empty. In continuous mode, there is exactly one node of each, in discrete mode, the number of filled and unfilled nodes corresponds to blocks that are drawn. The block.filled nodes also get a style class .level-name corresponding to the level for the current value.
+
+In horizontal orientation, the nodes are always arranged from left to right, regardless of text direction.
+*/
+
+levelbar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+levelbar.vertical
+{
+    min-width: 10px;
+}
+
+levelbar.horizontal
+{
+    min-height: 10px;
+}
+
+levelbar > trough
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @trough_bg_color;
+}
+
+levelbar > trough > block.filled
+{
+    border: 1px solid @selected_border_color;
+    color: inherit;
+    background-color: @selected_bg_color;
+}
+
+levelbar > trough > block.empty
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+levelbar.discrete > trough > block.empty
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+}
+
+/* Scale https://docs.gtk.org/gtk4/class.Scale.html
+
+scale[.fine-tune][.marks-before][.marks-after]
+├── [value][.top][.right][.bottom][.left]
+├── marks.top
+│   ├── mark
+│   ┊    ├── [label]
+│   ┊    ╰── indicator
+┊   ┊
+│   ╰── mark
+├── marks.bottom
+│   ├── mark
+│   ┊    ├── indicator
+│   ┊    ╰── [label]
+┊   ┊
+│   ╰── mark
+╰── trough
+    ├── [fill]
+    ├── [highlight]
+    ╰── slider
+
+GtkScale has a main CSS node with name scale and a subnode for its contents, with subnodes named trough and slider.
+
+The main node gets the style class .fine-tune added when the scale is in ‘fine-tuning’ mode.
+
+If the scale has an origin (see gtk_scale_set_has_origin()), there is a subnode with name highlight below the trough node that is used for rendering the highlighted part of the trough.
+
+If the scale is showing a fill level (see gtk_range_set_show_fill_level()), there is a subnode with name fill below the trough node that is used for rendering the filled in part of the trough.
+
+If marks are present, there is a marks subnode before or after the trough node, below which each mark gets a node with name mark. The marks nodes get either the .top or .bottom style class.
+
+The mark node has a subnode named indicator. If the mark has text, it also has a subnode named label. When the mark is either above or left of the scale, the label subnode is the first when present. Otherwise, the indicator subnode is the first.
+
+The main CSS node gets the ‘marks-before’ and/or ‘marks-after’ style classes added depending on what marks are present.
+
+If the scale is displaying the value (see GtkScale:draw-value), there is subnode with name value. This node will get the .top or .bottom style classes similar to the marks node.
+*/
+
+scale
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale:disabled
+{
+    background: none;
+}
+
+scale > contents
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale:disabled > contents
+{
+    background: none;
+}
+
+scale > trough
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background-color: @trough_bg_color;
+    margin: 5px;
+}
+
+scale > trough > highlight
+{
+    border: none;
+    color: inherit;
+    background-color: @selected_bg_color;
+}
+
+
+scale > trough > slider
+{
+    border: 1px solid @border_color;
+    border-radius: 50%;
+    color: inherit;
+    background-color: @slider_bg_color;
+    margin: -5px;
+    padding: 8px;
+
+}
+
+scale:hover > trough > slider
+{
+    background-color: @hover_bg_color_lighter;
+}
+
+scale:hover
+{
+    background: none;
+}
+
+scale:hover > trough
+{
+    background-color: @hover_bg_color;
+}
+
+
+scale:hover > trough > highlight
+{
+    background-color: @hover_color;
+}
+
+scale:focus
+{
+    box-shadow: inset 0px 0px 0px 1px @focus_color;
+}
+
+scale > value
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale > marks
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale > marks > mark
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+scale > marks > mark > indicator
+{
+    border: none;
+    color: @border_color;
+    background-color: @border_color;
+}
+
+scale.vertical > marks > mark > indicator
+{
+    min-width: 8px;
+    min-height: 1px;
+}
+
+scale.horizontal > marks > mark > indicator
+{
+    min-width: 1px;
+    min-height: 8px;
+}
+
+/* Statusbar https://docs.gtk.org/gtk4/class.Statusbar.html
+
+GtkStatusbar has a single CSS node with name statusbar.
+*/
+
+statusbar
+{
+    border: 1px inset @border_color;
+    color: inherit;
+    background: none;
+}
+
+/* Tooltip https://docs.gtk.org/gtk4/class.Tooltip.html */
+
+tooltip
+{
+    border: 1px solid @border_color;
+    color: @tooltip_fg_color;
+    background-color: @tooltip_bg_color;
+}
+
+/* TODO: Shadow for the tooltip window */
+
+tooltip > decoration
+{
+    border: none;
+    color: inherit;
+    background: none;
+    box-shadow: 8px 8px 4px 0px alpha(black, .5);
+}
+
+/* StackSwitcher https://docs.gtk.org/gtk4/class.StackSwitcher.html
+
+GtkStackSwitcher has a single CSS node named stackswitcher and style class .stack-switcher.
+
+When circumstances require it, GtkStackSwitcher adds the .needs-attention style class to the widgets representing the stack pages.
+*/
+
+stackswitcher
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+stackswitcher .needs-attention
+{
+    color: blue;
+    background-color: orange;
+}
+
+/* MenuButton https://docs.gtk.org/gtk4/class.MenuButton.html
+
+menubutton
+╰── button.toggle
+    ╰── <content>
+         ╰── [arrow]
+
+GtkMenuButton has a single CSS node with name menubutton which contains a button node with a .toggle style class.
+
+If the button contains an icon, it will have the .image-button style class, if it contains text, it will have .text-button style class. If an arrow is visible in addition to an icon, text or a custom child, it will also have .arrow-button style class.
+
+Inside the toggle button content, there is an arrow node for the indicator, which will carry one of the .none, .up, .down, .left or .right style classes to indicate the direction that the menu will appear in. The CSS is expected to provide a suitable image for each of these cases using the -gtk-icon-source property.
+
+Optionally, the menubutton node can carry the .circular style class to request a round appearance.
+*/
+
+menubutton
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+menubutton > button.text-button
+{
+    padding: 0px;
+}
+
+menubutton > button > box
+{
+    /*    padding: 3px; */
+}
+
+menubutton > button > box > image
+{
+    -gtk-icon-size: 16px;
+}
+
+menubutton > button > arrow.none
+{
+    -gtk-icon-source: -gtk-icontheme('open-menu-symbolic');
+}
+
+menubutton.circular
+{
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 50%;
+}
+
+/* TreeView https://docs.gtk.org/gtk4/class.TreeView.html
+
+CSS nodes
+
+treeview.view
+├── header
+│   ├── button
+│   │   ╰── [sort-indicator]
+┊   ┊
+│   ╰── button
+│       ╰── [sort-indicator]
+│
+├── [rubberband]
+╰── [dndtarget]
+
+GtkTreeView has a main CSS node with name treeview and style class .view. It has a subnode with name header, which is the parent for all the column header widgets’ CSS nodes.
+
+Each column header consists of a button, which among other content, has a child with name sort-indicator, which carries the .ascending or .descending style classes when the column header should show a sort indicator. The CSS is expected to provide a suitable image using the -gtk-icon-source property.
+
+For rubberband selection, a subnode with name rubberband is used.
+
+For the drop target location during DND, a subnode with name dndtarget is used.
+*/
+
+treeview
+{
+    border: none;
+    color: inherit;
+    background-color: @base_color;
+}
+
+treeview > header
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+treeview dndtarget {
+    color: blue;
+    background-color: orange;
+}
+
+rubberband
+{
+    background-color: alpha(@theme_color, .3);
+    border: 1px solid @selected_border_color;
+}
+
+sort-indicator
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+sort-indicator.ascending
+{
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+sort-indicator.descending
+{
+    -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+}
+
+/* Notebook https://docs.gtk.org/gtk4/class.Notebook.html
+
+notebook
+├── header.top
+│   ├── [<action widget>]
+│   ├── tabs
+│   │   ├── [arrow]
+│   │   ├── tab
+│   │   │   ╰── <tab label>
+┊   ┊   ┊
+│   │   ├── tab[.reorderable-page]
+│   │   │   ╰── <tab label>
+│   │   ╰── [arrow]
+│   ╰── [<action widget>]
+│
+╰── stack
+    ├── <child>
+    ┊
+    ╰── <child>
+
+GtkNotebook has a main CSS node with name notebook, a subnode with name header and below that a subnode with name tabs which contains one subnode per tab with name tab.
+
+If action widgets are present, their CSS nodes are placed next to the tabs node. If the notebook is scrollable, CSS nodes with name arrow are placed as first and last child of the tabs node.
+
+The main node gets the .frame style class when the notebook has a border (see gtk_notebook_set_show_border()).
+
+The header node gets one of the style class .top, .bottom, .left or .right, depending on where the tabs are placed. For reorderable pages, the tab node gets the .reorderable-page class.
+
+A tab node gets the .dnd style class while it is moved with drag-and-drop.
+
+The nodes are always arranged from left-to-right, regardless of text direction.
+*/
+
+notebook
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+notebook > header
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+notebook > header > tabs
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+notebook > header.top > tabs,
+notebook > header.bottom > tabs
+{
+    margin-left: 1px;
+}
+
+notebook > header.left > tabs,
+notebook > header.right > tabs
+{
+    margin-top: 1px;
+}
+
+notebook > header > tabs > tab
+{
+    border: none;
+    color: inherit;
+    background-color: @checked_bg_color;
+    /* top right bottom left */
+    padding: 2px 6px 2px 6px;
+}
+
+notebook > header.top > tabs > tab
+{
+    margin-top: 1px;
+    border-top: 1px solid white;
+    border-right: 1px solid @border_color;
+}
+
+notebook > header.bottom > tabs > tab
+{
+    margin-bottom: 1px;
+    border-bottom: 1px solid @border_color;
+    border-right: 1px solid @border_color;
+}
+
+notebook > header.left > tabs > tab
+{
+    margin-left: 1px;
+    border-left: 1px solid white;
+    border-bottom: 1px solid @border_color;
+}
+
+notebook > header.right > tabs > tab
+{
+    margin-right: 1px;
+    border-right: 1px solid @border_color;
+    border-bottom: 1px solid @border_color;
+}
+
+notebook > header.top > tabs > tab:first-child,
+notebook > header.bottom > tabs > tab:first-child
+{
+    box-shadow: -1px 0 white;
+}
+
+notebook > header.left > tabs > tab:first-child,
+notebook > header.right > tabs > tab:first-child
+{
+    box-shadow: 0 -1px white;
+}
+
+notebook > header > tabs > tab:checked
+{
+    background-color: @bg_color_lighter;
+}
+
+notebook > header.top > tabs > tab:checked
+{
+    margin-bottom: -1px;
+    margin-top: 0px;
+    box-shadow: -1px 0 white;
+}
+
+notebook > header.bottom > tabs > tab:checked
+{
+    margin-top: -1px;
+    margin-bottom: 0px;
+    box-shadow: -1px 0 white;
+}
+
+notebook > header.left > tabs > tab:checked
+{
+    margin-right: -1px;
+    margin-left: 0px;
+    box-shadow: 0 -1px white;
+}
+
+notebook > header.right > tabs > tab:checked
+{
+    margin-left: -1px;
+    margin-right: 0px;
+    box-shadow: 0 -1px white;
+}
+
+notebook:focus > header > tabs > tab:checked > label
+{
+    border: 1px solid @focus_color;
+}
+
+notebook > header > tabs > arrow
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+notebook > stack
+{
+    border: 1px outset @border_color;
+    color: inherit;
+    background-color: @bg_color_lighter;
+}
+
+/* ListBox https://docs.gtk.org/gtk4/class.ListBox.html
+
+list[.separators][.rich-list][.navigation-sidebar][.boxed-list]
+╰── row[.activatable]
+
+GtkListBox uses a single CSS node named list. It may carry the .separators style class, when the GtkListBox:show-separators property is set. Each GtkListBoxRow uses a single CSS node named row. The row nodes get the .activatable style class added when appropriate.
+
+It may also carry the .boxed-list style class. In this case, the list will be automatically surrounded by a frame and have separators.
+
+The main list node may also carry style classes to select the style of list presentation: .rich-list, .navigation-sidebar or .data-table.
+*/
+
+list
+{
+    border: none;
+    color: inherit;
+    background-color: @base_color;
+}
+
+list > separator.horizontal
+{
+    background-color: @border_color;
+}
+
+row
+{
+    border: none;
+    color: @fg_color;
+    background: none;
+    /* padding: 3px; */
+}
+
+row:nth-child(even)
+{
+    background-color: shade(@base_color, .975);
+}
+
+row:nth-child(odd)
+{
+    background-color: shade(@base_color, .925);
+}
+
+dropdown > button > box > stack > row:nth-child(2)
+{
+    background: inherit;
+}
+
+row:hover,
+listview > row:only-child:hover
+{
+    color: @selected_fg_color;
+    background-color: @hover_bg_color;
+}
+
+row:active:hover,
+listview > row:only-child:active:hover
+{
+    color: @selected_fg_color;
+    background-color: @active_hover_bg_color;
+}
+
+row:selected,
+listview > row:only-child:selected
+{
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+row:selected:hover,
+listview > row:only-child:hover
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+row.activatable
+{
+
+}
+
+row:focus,
+listview > row:only-child:focus
+{
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+/* Widget */
+
+widget
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Cell */
+
+cell
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* TreeExpander https://docs.gtk.org/gtk4/class.TreeExpander.html
+
+treeexpander
+├── [indent]*
+├── [expander]
+╰── <child>
+
+GtkTreeExpander has zero or one CSS nodes with the name “expander” that should display the expander icon. The node will be :checked when it is expanded. If the node is not expandable, an “indent” node will be displayed instead.
+
+For every level of depth, another “indent” node is prepended.
+*/
+
+treeexpander
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+treeexpander indent
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-color: rgba(0,0,0,.1);
+}
+
+treeexpander indent:nth-child(even)
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-color: rgba(0,0,0,.2);
+}
+
+treeexpander expander
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+treeexpander expander:checked
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme('pan-right-symbolic');
+}
+
+/* DropDown https://docs.gtk.org/gtk4/class.DropDown.html
+
+GtkDropDown has a single CSS node with name dropdown, with the button and popover nodes as children.
+*/
+
+dropdown
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+dropdown > button > box > arrow
+{
+    border: none;
+    color: inherit;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+}
+
+/* GridView https://docs.gtk.org/gtk4/class.GridView.html
+
+gridview
+├── child[.activatable]
+│
+├── child[.activatable]
+│
+┊
+╰── [rubberband]
+
+GtkGridView uses a single CSS node with name gridview. Each child uses a single CSS node with name child. If the GtkListItem:activatable property is set, the corresponding row will have the .activatable style class. For rubberband selection, a subnode with name rubberband is used.
+*/
+
+gridview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+gridview > child
+{
+    border: none;
+    color: inherit;
+    background: none;
+    box-shadow: 1px 1px @border_color;
+    border-top: 1px solid @border_color;
+    border-left: 1px solid @border_color;
+}
+
+
+/* EditableLabel https://docs.gtk.org/gtk4/class.EditableLabel.html
+
+editablelabel[.editing]
+╰── stack
+    ├── label
+    ╰── text
+
+GtkEditableLabel has a main node with the name editablelabel. When the entry is in editing mode, it gets the .editing style class.
+
+For all the subnodes added to the text node in various situations, see GtkText.
+*/
+
+editablelabel
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+editablelabel.editing
+{
+    background-color: @base_color;
+}
+
+/* WindowControls https://docs.gtk.org/gtk4/class.WindowControls.html
+
+windowcontrols
+├── [image.icon]
+├── [button.minimize]
+├── [button.maximize]
+╰── [button.close]
+
+A GtkWindowControls‘ CSS node is called windowcontrols. It contains subnodes corresponding to each title button. Which of the title buttons exist and where they are placed exactly depends on the desktop environment and GtkWindowControls:decoration-layout value.
+
+When GtkWindowControls:empty is TRUE, it gets the .empty style class.
+*/
+
+windowcontrols
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* ColorChooserWidget https://docs.gtk.org/gtk4/class.ColorChooserWidget.html
+
+GtkColorChooserWidget has a single CSS node with name colorchooser.
+*/
+
+colorchooser
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+colorswatch
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+/* FileChooser https://docs.gtk.org/gtk4/class.FileChooserWidget.html
+
+GtkFileChooserWidget has a single CSS node with name filechooser.
+*/
+
+filechooser
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+placessidebar
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+}
+
+/* Revealer https://docs.gtk.org/gtk4/class.Revealer.html
+
+CSS nodes
+
+GtkRevealer has a single CSS node with name revealer. When styling GtkRevealer using CSS, remember that it only hides its contents, not itself. That means applied margin, padding and borders will be visible even when the GtkRevealer:reveal-child property is set to FALSE.
+*/
+
+revealer
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* PlacesView */
+
+placesview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* FileListCell */
+
+filelistcell
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* FileThumbnail */
+
+filethumbnail
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* PathBar */
+
+pathbar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* ActionBar https://docs.gtk.org/gtk4/class.ActionBar.html
+
+actionbar
+╰── revealer
+    ╰── box
+        ├── box.start
+        │   ╰── [start children]
+        ├── [center widget]
+        ╰── box.end
+            ╰── [end children]
+
+A GtkActionBar‘s CSS node is called actionbar. It contains a revealer subnode, which contains a box subnode, which contains two box subnodes at the start and end of the action bar, with start and `end style classes respectively, as well as a center node that represents the center child.
+
+Each of the boxes contains children packed for that side.
+*/
+
+actionbar
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+    min-height: 16px;
+}
+
+/* SearchBar https://docs.gtk.org/gtk4/class.SearchBar.html
+
+searchbar
+╰── revealer
+    ╰── box
+         ├── [child]
+         ╰── [button.close]
+
+GtkSearchBar has a main CSS node with name searchbar. It has a child node with name revealer that contains a node with name box. The box node contains both the CSS node of the child widget as well as an optional button node which gets the .close style class applied.
+*/
+
+searchbar
+{
+    border: none;
+    color: @selected_fg_color;
+    background-color: @searchbar_bg_color;
+}
+
+searchbar entry.search
+{
+    border: none;
+    color: @fg_color;
+    background-color: @base_color;
+    margin: 3px;
+}
+
+/* Separator https://docs.gtk.org/gtk4/class.Separator.html
+
+GtkSeparator has a single CSS node with name separator. The node gets one of the .horizontal or .vertical style classes.
+*/
+
+separator
+{
+    border: none;
+    color: @border_color; /* Firefox */
+    background-color: @border_color;
+
+    min-width: 1px;
+    min-height: 1px;
+}
+
+separator.horizontal
+{
+    margin: 4px 0px;
+}
+
+separator.vertical
+{
+    margin: 0px 4px;
+}
+
+/* InfoBar https://docs.gtk.org/gtk4/class.InfoBar.html
+
+GtkInfoBar has a single CSS node with name infobar. The node may get one of the style classes .info, .warning, .error or .question, depending on the message type. If the info bar shows a close button, that button will have the .close style class applied.
+*/
+
+infobar
+{
+    border: 1px solid shade(@infobar_bg_color, .4);
+    color: shade(@infobar_bg_color, .4);
+    background-color: @infobar_bg_color;
+    padding: 6px;
+}
+
+infobar.info
+{
+    border: 1px solid shade(@tooltip_bg_color, .3);
+    color: shade(@tooltip_bg_color, .3);
+    background-color: @tooltip_bg_color;
+}
+
+infobar.warning
+{
+    border: 1px solid shade(@warning_bg_color, .4);
+    color: shade(@warning_bg_color, .4);
+    background-color: @warning_bg_color;
+}
+
+infobar.question
+{
+    border: 1px solid shade(@question_bg_color, .4);
+    color: shade(@question_bg_color, .4);
+    background-color: @question_bg_color;
+}
+
+infobar.error
+{
+    border: 1px solid shade(@error_bg_color, .4);
+    color: shade(@error_bg_color, .4);
+    background-color: @error_bg_color;
+}
+
+/* Calendar https://docs.gtk.org/gtk4/class.Calendar.html
+
+calendar.view
+├── header
+│   ├── button
+│   ├── stack.month
+│   ├── button
+│   ├── button
+│   ├── label.year
+│   ╰── button
+╰── grid
+    ╰── label[.day-name][.week-number][.day-number][.other-month][.today]
+
+GtkCalendar has a main node with name calendar. It contains a subnode called header containing the widgets for switching between years and months.
+
+The grid subnode contains all day labels, including week numbers on the left (marked with the .week-number css class) and day names on top (marked with the .day-name css class).
+
+Day labels that belong to the previous or next month get the .other-month style class. The label of the current day get the .today style class.
+
+Marked day labels get the :selected state assigned.
+*/
+
+calendar
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+calendar > header
+{
+    border: none;
+    border-bottom: 1px solid @border_color;
+    color: inherit;
+    background-color: @bg_color;
+}
+
+calendar > header > button.image-button > image
+{
+    -gtk-icon-size: 16px;
+}
+
+calendar > grid > label.day-name,
+calendar > grid > label.week-number
+{
+    color: @selected_fg_color;
+    background-color: @theme_color;
+}
+
+calendar > grid > label.other-month
+{
+    color: @disabled_fg_color;
+    background-color: @disabled_bg_color;
+}
+
+calendar > grid > label.today
+{
+    font-weight: bold;
+}
+
+calendar > grid > label:selected {
+    color: @selected_fg_color;
+    background-color: @selected_bg_color;
+}
+
+calendar > grid > label:hover,
+calendar > grid > label:focus:hover
+{
+    color: @selected_fg_color;
+    background-color: @hover_color;
+}
+
+calendar > grid > label:hover:selected
+{
+}
+
+calendar > grid > label:focus {
+    font-weight: bold;
+    outline: @focus_color solid 1px;
+    outline-offset: -1px;
+}
+
+/* FontChooserWidge https://docs.gtk.org/gtk4/class.FontChooserWidget.html
+
+GtkFontChooserWidget has a single CSS node with name fontchooser.
+*/
+
+fontchooser
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* Gnome Calculator */
+
+mathconverter
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+leaflet
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+mathdisplay
+{
+    border: none;
+    color: @fg_color;
+    background: @bg_color;
+}
+
+mathdisplay > scrolledwindow.display-scrolled
+{
+    border: none;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+mathdisplay > scrolledwindow.display-scrolled > textview.sourceview
+{
+    min-height: 34px;
+}
+
+mathdisplay textview.info-view
+{
+    border: 1px inset @border_color;
+    color: inherit;
+    background: none;
+    margin: 3px;
+    min-height: 16px;
+}
+
+dimming
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+clamp
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+dialog-host
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+toolbarview
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+buttoncontent
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+navigation-view,
+navigation-view-page
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+toastoverlay
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+viewswitcher
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+windowtitle
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+windowtitle label.title,
+.titlebar label.title
+
+{
+    text-shadow: 1px 1px @focus_color_darker;
+    font-weight: bold;
+    font-size: 110%;
+    font-family: DejaVuSans;
+}
+
+windowtitle label.subtitle,
+.titlebar label.subtitle
+{
+    text-shadow: 1px 1px @focus_color_darker;
+    font-family: DejaVuSans;
+}
+
+windowtitle label.title:backdrop,
+.titlebar label.title:backdrop
+
+{
+    text-shadow: none;
+}
+
+windowtitle label.subtitle:backdrop,
+.titlebar label.subtitle:backdrop
+{
+    text-shadow: none;
+}
+
+preferencespage
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+preferencesgroup
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+    margin: 6px;
+}
+
+box.suffixes
+{
+    border: 1px outset @border_color;
+    color: @fg_color;
+    background-color: @bg_color;
+}
+
+viewswitcherbar
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+shortcuts-section
+{
+    border: none;
+    color: inherit;
+    background: none;
+    margin: 6px;
+}
+
+shortcuts-group
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+shortcut
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+shortcut:focus {
+    outline: @focus_color solid 1px;
+    outline-offset: -4px;
+}
+
+toast
+{
+    border: 1px solid @border_color;
+    color: shade(@tooltip_bg_color, .3);
+    background-color: @tooltip_bg_color;
+    margin: 20px;
+}
+
+squeezer
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+GtkSourceAssistant
+{
+    border: none;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+GtkSourceAssistant > contents
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background-color: @base_color;
+}
+
+/* gtk4-widget-factory */
+
+video
+{
+    border: 1px solid @border_color;
+    color: @fg_color;
+    background: @bg_color;
+}
+
+graphicsoffload
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+picture
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+controls
+{
+    border: none;
+    border-top: 1px solid @border_color;
+    color: @fg_color;
+    background: @bg_color;
+}
+
+/* file-roller */
+
+statuspage
+{
+    border: none;
+    color: @fg_color;
+    background: @bg_color;
+}
+
+selection
+{
+    border: none;
+    color: @selected_fg_color;
+    background: @selected_bg_color;
+}
+
+shadow.right
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-image: linear-gradient(
+        to right,
+        rgba(0,0,0,0) 0%,
+        @disabled_bg_color 100%);
+    min-width: 100px;
+}
+
+shadow.left
+{
+    border: none;
+    color: inherit;
+    background: none;
+    background-image: linear-gradient(
+        to left,
+        rgba(0,0,0,0) 0%,
+        @disabled_bg_color 100%);
+    min-width: 100px;
+}
+
+border
+{
+    border: 1px solid @border_color;
+    color: inherit;
+    background: none;
+}
+
+outline
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
+/* GTK Inspector */
+
+magnifier
+{
+    border: none;
+    color: inherit;
+    background: none;
+}

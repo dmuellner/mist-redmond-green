@@ -1,0 +1,88 @@
+/**
+ * Color definitions.
+ *
+ * Each color defined in this file is usable as a symbolic color
+ * in all files included after it.
+ *
+ * Color definitions have the format `@define-color <name> <value>;',
+ * where <name> is a name you choose, and <value> is a color definition.
+ * Defined colors can be used in rules with the syntax `@<name>'
+ *
+ * The most common color definition is a html color code: #rrbbgg
+ * For more information see (1) or (2).
+ *
+ * (1) file:///usr/share/devhelp/books/gtk3/GtkCssProvider.html#gtkcssprovider-symbolic-colors
+ * (2) http://developer.gnome.org/gtk3/3.1/GtkCssProvider.html#gtkcssprovider-symbolic-colors
+ */
+
+/* Some common color definitions
+ *
+ * @define-color base-color #ff00ff;
+ * @define-color background-color #ff00ff;
+ * @define-color forground-color #ff00ff;
+ * @define-color text-color #ff00ff;
+ */
+
+@define-color theme_color			#66998B; /* green, HSB 164, 33, 60 */
+@define-color bg_color				#d4cfc7; /* warm grey, HSB 36, 6, 83 */
+
+@define-color base_color			#faf4eb; /* very light yellow, HSB 36, 6, 98 */
+@define-color disabled_base_color	#ebe1d3; /* very light yellow, HSB 36, 10, 92 */
+@define-color tooltip_bg_color		#fff9e0; /* very light yellow, HSB 48, 12, 100 */
+@define-color iconview_bg_color		#fff5cc; /* very light yellow, HSB 48, 20, 100 */
+@define-color desktop_color			#8c7d6c; /* brown */
+
+@define-color hover_color			#677b99; /* blue, HSB 216, 33, 60 */
+
+@define-color fg_color				black;
+@define-color selected_fg_color		white;
+
+@define-color link_color			#0000ee;
+@define-color visited_color			#551a8b;
+
+@define-color error_color			#ff0000;
+
+@define-color warning_bg_color		#faad3d; /* orange, HSB 36, 76, 98 */
+@define-color question_bg_color		#8aadd4; /* light blue, HSB 212, 35, 83 */
+@define-color error_bg_color		#ff6060; /* red, HSB 0, 62, 100 */
+
+@define-color bg_color_insensitive shade(@bg_color, .95);
+@define-color disabled_bg_color shade(@bg_color, .92);
+@define-color disabled_fg_color shade(@bg_color, .52);
+@define-color bg_color_lighter shade(@bg_color, 1.06);
+@define-color bg_color_darker shade(@bg_color, .9);
+
+@define-color hover_bg_color mix(@hover_color, @bg_color, .7);
+@define-color active_hover_bg_color mix(@hover_color, @bg_color, .3);
+@define-color hover_bg_color_lighter shade(@hover_bg_color, 1.15);
+@define-color selected_hover_color mix(@hover_color, @theme_color, .5);
+
+@define-color active_bg_color @bg_color_darker;
+@define-color checked_bg_color @bg_color_darker;
+
+@define-color tooltip_fg_color @fg_color;
+
+@define-color selected_bg_color @theme_color;
+@define-color selected_border_color @focus_color_darker;
+
+@define-color searchbar_bg_color shade(@theme_color, .8);
+
+@define-color border_color shade(@bg_color, .7);
+@define-color backdrop_border_color shade(@bg_color, .665);
+
+@define-color infobar_bg_color shade(@theme_color, 1.4);
+
+@define-color theme_base_color alpha(@theme_color, .5); /* Gnome-Disks */
+
+@define-color button_bg_suggested mix(@bg_color, green, .3);
+@define-color button_bg_destructive mix(@bg_color, red, .3);
+
+@define-color focus_color shade(@theme_color, .84);
+@define-color focus_color_darker shade(@focus_color, .84);
+@define-color focus_color_lighter shade(@focus_color, 1.58);
+@define-color focus_color_highlight shade(@focus_color, 1.7);
+
+@define-color drop_target_bg_color @hover_bg_color;
+
+@define-color slider_bg_color @bg_color_lighter;
+@define-color trough_bg_color @bg_color_darker;
