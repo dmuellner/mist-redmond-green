@@ -2679,6 +2679,13 @@ meld-folder-diff {
     color: inherit;
 }
 
+/* Like searchbar */
+meld-find-bar {
+    border: none;
+    color: @selected_fg_color;
+    background-color: @searchbar_bg_color;
+}
+
 /* For xfdesktop icons */
 
 XfdesktopIconView {
