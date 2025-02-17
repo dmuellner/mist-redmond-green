@@ -2685,9 +2685,16 @@ XfdesktopIconView {
   -XfdesktopIconView-ellipsize-icon-labels: 0;
 }
 
+XfdesktopIconView.view
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
 /* Icons */
 XfdesktopIconView.view:active {
-  color: @focus_color_lighter;
+    color: @selected_bg_color;
 }
 
 /* Labels */
@@ -2695,12 +2702,22 @@ XfdesktopIconView.label {
   color: white;
   background-color: transparent;
   text-shadow: 1px 1px 2px black;
+  border-radius: 3px;
 }
 
-XfdesktopIconView.label:active {
+XfdesktopIconView.label:hover
+{
+    background-color: alpha(@hover_bg_color, .5);
+}
+
+XfdesktopIconView.label:selected
+{
     background-color: @selected_bg_color;
-  color: @selected_fg_color;
-  border-radius: 3px;
+}
+
+XfdesktopIconView.label:hover:selected
+{
+    background-color: @hover_color;
 }
 
 XfdesktopIconView.rubberband {
