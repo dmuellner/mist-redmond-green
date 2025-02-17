@@ -1852,7 +1852,28 @@ window
     background-color: @bg_color;
 }
 
-decoration /* for window, dialog etc. */
+/* E.g. Google Chrome */
+window decoration /* for window, dialog etc. */
+{
+    border: none;
+    color: inherit;
+    background: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0px 0px 0px 3px @focus_color_darker,
+    0px 0px 0px 2px @focus_color_lighter,
+    0px 0px 0px 1px @focus_color_darker;
+    margin: 6px; /* Area for resize "handles" */
+
+}
+
+window decoration:backdrop
+{
+    box-shadow: 0px 0px 0px 3px @backdrop_border_color,
+     0px 0px 0px 2px @bg_color;
+}
+
+window.csd decoration /* for window, dialog etc. */
 {
     border: none;
     color: inherit;
@@ -1867,11 +1888,11 @@ decoration /* for window, dialog etc. */
 
 }
 
-decoration:backdrop
+window.csd decoration:backdrop
 {
-    box-shadow:   0px 0px 8px 6px alpha(black, 0.5),
-     0px 0px 0px 3px @backdrop_border_color,
-     0px 0px 0px 2px @bg_color;
+    box-shadow: 0px 0px 8px 6px alpha(black, 0.5),
+    0px 0px 0px 3px @backdrop_border_color,
+    0px 0px 0px 2px @bg_color;
 }
 
 window.popup > decoration /* E.g. menus */
