@@ -1462,6 +1462,21 @@ scrollbar.horizontal > contents > button.down:disabled
     border-left: none;
 }
 
+/* Firefox */
+
+window.background > widget > scrollbar > contents > trough > slider {
+    background-color: black;
+}
+
+window.background > widget > scrollbar > contents > trough > slider:hover {
+    background-color: @hover_color;
+}
+
+window.background > widget > scrollbar > contents > trough > slider:active:hover
+{
+    background-color: @active_hover_bg_color;
+}
+
 /* TreeView: https://developer.gnome.org/gtk3/stable/GtkTreeView.html
 
 treeview.view
