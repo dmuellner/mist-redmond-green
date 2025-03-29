@@ -3067,6 +3067,13 @@ GtkSourceAssistant > contents
     background-color: @base_color;
 }
 
+multi-layout-view
+{
+    border: none;
+    color: inherit;
+    background: none;
+}
+
 /* gtk4-widget-factory */
 
 video
