@@ -1272,9 +1272,12 @@ statusbar
     background: none;
 }
 
-statusbar > frame > border
+statusbar > frame > border,
+statusbar > border
 {
     border: 1px inset @border_color;
+    color: inherit;
+    background: none;
 }
 
 /* ScrolledWindow: https://developer.gnome.org/gtk3/stable/GtkScrolledWindow.html
@@ -2749,6 +2752,19 @@ XfdesktopIconView.label:hover:selected
 XfdesktopIconView.rubberband {
   background-color: alpha(@theme_color, .3);
   border: 1px solid @selected_border_color;
+}
+
+/* Gimp */
+
+GimpPrefsBox,
+GimpDock,
+GimpDisplayShell,
+GimpSpinScale,
+GimpRuler
+{
+    border: none;
+    color: inherit;
+    background: none;
 }
 
 /* Thunar */
