@@ -1868,7 +1868,8 @@ window
 }
 
 /* E.g. Google Chrome */
-window decoration /* for window, dialog etc. */
+window decoration,
+dialog decoration /* for window, dialog etc. */
 {
     border: none;
     color: inherit;
@@ -1882,13 +1883,15 @@ window decoration /* for window, dialog etc. */
 
 }
 
-window decoration:backdrop
+window decoration:backdrop,
+dialog decoration:backdrop
 {
     box-shadow: 0px 0px 0px 3px @backdrop_border_color,
      0px 0px 0px 2px @bg_color;
 }
 
-window.csd decoration /* for window, dialog etc. */
+window.csd decoration,
+dialog.csd decoration /* for window, dialog etc. */
 {
     border: none;
     color: inherit;
@@ -1903,7 +1906,8 @@ window.csd decoration /* for window, dialog etc. */
 
 }
 
-window.csd decoration:backdrop
+window.csd decoration:backdrop,
+dialog.csd decoration:backdrop
 {
     box-shadow: 0px 0px 8px 6px alpha(black, 0.5),
     0px 0px 0px 3px @backdrop_border_color,
